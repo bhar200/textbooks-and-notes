@@ -11,36 +11,15 @@
             "id": "bba34a5fd0f96937",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "f8f23168b0de324b",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/Two Gentlemen of Verona.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9c0eb479fa7ee79e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Git Quick Commands.md",
+                "file": "notes/Git Quick Commands.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -69,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#shakespeare",
+                "query": "tag:#Programming",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -106,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Git Quick Commands.md",
+                "file": "notes/Git Quick Commands.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Git Quick Commands.md",
+                "file": "notes/Git Quick Commands.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Git Quick Commands.md"
+                "file": "notes/Git Quick Commands.md"
               }
             }
           }
@@ -167,22 +146,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9c0eb479fa7ee79e",
+  "active": "bba34a5fd0f96937",
   "lastOpenFiles": [
     "notes/Two Gentlemen of Verona.md",
-    "Git Quick Commands.md",
-    "textbook/Bubeck15.pdf",
-    "textbook/understanding-machine-learning-theory-algorithms.pdf",
-    "textbook/Computer Architecture A Quantitative Approach (5th edition).pdf",
-    "textbook/Competitive Programming 3.pdf",
-    "textbook/Adnan Aziz, Tsung-Hsien Lee, Amit Prakash - Elements of Programming Interviews_ The Insidersâ Guide (2015).pdf",
-    "textbook/Boyce-DiPrima-ElementaryDifferentialEquations-11ed.pdf",
+    "programming.md",
+    "notes/Git Quick Commands.md",
+    "homework/old homeworks/pset2.pdf",
+    "homework/old homeworks/Lecture worksheet III_coupled_oscillators.pdf",
+    "homework/old homeworks/annotated-4200.pdf",
+    "homework/old homeworks/3300 (2).pdf",
+    "homework/old homeworks/4787.pdf",
+    "homework/old homeworks/4787 (1).pdf",
+    "homework/old homeworks/3610.pdf",
+    "homework/old homeworks/3610 (2).pdf",
+    "homework/old homeworks/3610 (1).pdf",
+    "homework/old homeworks/3300.pdf",
+    "notes/CS4787/lecture4_files/ComputeGraph2.png",
+    "notes/CS4787/lecture4_files/ComputeGraph1.png",
+    "notes/CS4787/lecture2_files/Myrick_Cropped.jpg",
     "shakespeare.md",
-    "shakespeare",
     "Untitled.canvas",
-    "textbook/README.md",
-    "homework/old homeworks/2800 ps3.pdf",
-    "homework/Untitled",
-    "homework/old homeworks"
+    "textbook/README.md"
   ]
 }
