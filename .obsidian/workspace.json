@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "9e858fa97251ce01",
+        "id": "7fe2376a22d9c675",
         "type": "tabs",
         "children": [
           {
-            "id": "bba34a5fd0f96937",
+            "id": "72fb75374e77311b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/Git Quick Commands.md",
+                "file": "homework/CS4787.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "6b94c27ac434ed89",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/Git Quick Commands.md",
+                "file": "homework/CS4787.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "notes/Git Quick Commands.md",
+                "file": "homework/CS4787.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/Git Quick Commands.md"
+                "file": "homework/CS4787.md"
               }
             }
           }
@@ -146,11 +147,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "bba34a5fd0f96937",
+  "active": "72fb75374e77311b",
   "lastOpenFiles": [
-    "notes/Two Gentlemen of Verona.md",
-    "programming.md",
+    "notes/CS4787/lecture9.pdf",
+    "notes/CS4787/Unconfirmed 296923.crdownload",
+    "CS4787.pdf",
+    "homework/CS4787.md",
+    "Programming.md",
+    "CS4787.md",
+    "CS4787.pdf.sb-a6228405-VRlaE8",
     "notes/Git Quick Commands.md",
+    "notes/Two Gentlemen of Verona.md",
     "homework/old homeworks/pset2.pdf",
     "homework/old homeworks/Lecture worksheet III_coupled_oscillators.pdf",
     "homework/old homeworks/annotated-4200.pdf",
@@ -158,9 +165,6 @@
     "homework/old homeworks/4787.pdf",
     "homework/old homeworks/4787 (1).pdf",
     "homework/old homeworks/3610.pdf",
-    "homework/old homeworks/3610 (2).pdf",
-    "homework/old homeworks/3610 (1).pdf",
-    "homework/old homeworks/3300.pdf",
     "notes/CS4787/lecture4_files/ComputeGraph2.png",
     "notes/CS4787/lecture4_files/ComputeGraph1.png",
     "notes/CS4787/lecture2_files/Myrick_Cropped.jpg",
