@@ -77,9 +77,7 @@ def multinomial_logreg_error(Xs, Ys, W):
     val = softmax(W @ Xs)
     preds = numpy.zeros_like(val)
     preds[numpy.argmax(val, axis=0), range(val.shape[1])] = 1
-    return numpy.sum(preds * Ys) / Ys.shape[1]
-
-    # TODO students should implement this
+    return 1 - numpy.sum(preds * Ys) / Ys.shape[1]
 
 
 # compute the gradient of the multinomial logistic regression objective on a batch, with regularization
@@ -101,12 +99,7 @@ def multinomial_logreg_batch_grad(Xs, Ys, gamma, W, ii=None):
         Y = Ys[:, ii]
     # a starter solution using an average of the example gradients
     (d, n) = Xs.shape
-    return ((softmax(W @ X) - Y) @ X.T) / len(ii)
-
-    # acc = W * 0.0
-    # for i in ii:
-    #     acc += multinomial_logreg_grad_i(Xs[:, i], Ys[:, i], gamma, W)
-    # return acc / len(ii)
+    return ((softmax(W @ X, axis=0) - Y) @ X.T) / len(ii) + gamma * W
 
 
 # compute the cross-entropy loss of the classifier on a batch, with regularization
@@ -156,13 +149,11 @@ def multinomial_logreg_batch_loss(Xs, Ys, gamma, W, ii=None):
 def gradient_descent(Xs, Ys, gamma, W0, alpha, num_iters, monitor_freq):
     W = W0
     paramsHist = [W.copy()]
-    accuracyHist = [multinomial_logreg_error(Xs, Ys, W)]
     for iter in range(num_iters):
         W = W - alpha * multinomial_logreg_batch_grad(Xs, Ys, gamma, W, None)
         if (iter + 1) % monitor_freq == 0:
-            accuracyHist.append(multinomial_logreg_error(Xs, Ys, W))
             paramsHist.append(W.copy())
-    return accuracyHist, paramsHist
+    return paramsHist
 
 
 # ALGORITHM 1: run stochastic gradient descent on a multinomial logistic regression objective, with regularization
@@ -190,16 +181,14 @@ def gradient_descent(Xs, Ys, gamma, W0, alpha, num_iters, monitor_freq):
 def sgd_minibatch(Xs, Ys, gamma, W0, alpha, B, num_epochs, monitor_period):
     W = W0
     paramsHist = [W.copy()]
-    accuracyHist = [multinomial_logreg_error(Xs, Ys, W)]
     T = num_epochs * (Xs.shape[1] // B)
     for iter in range(T):  # by pseudocode, T=epochs i guess
         W = W - alpha * multinomial_logreg_batch_grad(
             Xs, Ys, gamma, W, random.choice(Xs.shape[1], B)
         )
         if (iter + 1) % monitor_period == 0:
-            accuracyHist.append(multinomial_logreg_error(Xs, Ys, W))
             paramsHist.append(W.copy())
-    return accuracyHist, paramsHist
+    return paramsHist
 
 
 # ALGORITHM 2: run stochastic gradient descent with minibatching and sequential sampling order
@@ -219,7 +208,6 @@ def sgd_minibatch_sequential_scan(
 ):
     W = W0
     paramsHist = [W.copy()]
-    accuracyHist = [multinomial_logreg_error(Xs, Ys, W)]
     n = Xs.shape[1]
     for epoch in range(num_epochs):  # by pseudocode, T=epochs i guess
         for iter in range(n // B):
@@ -227,9 +215,8 @@ def sgd_minibatch_sequential_scan(
                 Xs, Ys, gamma, W, range(iter * B, (iter + 1) * B)
             )
             if ((epoch * (n // B)) + iter + 1) % monitor_period == 0:
-                accuracyHist.append(multinomial_logreg_error(Xs, Ys, W))
                 paramsHist.append(W.copy())
-    return accuracyHist, paramsHist
+    return paramsHist
 
 
 # ALGORITHM 3: run stochastic gradient descent with minibatching and without-replacement sampling
@@ -249,7 +236,6 @@ def sgd_minibatch_random_reshuffling(
 ):
     W = W0
     paramsHist = [W.copy()]
-    accuracyHist = [multinomial_logreg_error(Xs, Ys, W)]
     n = Xs.shape[1]
     shuffledIndices = numpy.arange(n)
     for epoch in range(num_epochs):  # by pseudocode, T=epochs i guess
@@ -259,9 +245,8 @@ def sgd_minibatch_random_reshuffling(
                 Xs, Ys, gamma, W, shuffledIndices[iter * B : (iter + 1) * B]
             )
             if ((epoch * (n // B)) + iter + 1) % monitor_period == 0:
-                accuracyHist.append(multinomial_logreg_error(Xs, Ys, W))
                 paramsHist.append(W.copy())
-    return accuracyHist, paramsHist
+    return paramsHist
 
 
 def timeit(f):
@@ -283,7 +268,8 @@ if __name__ == "__main__":
         1000,
         10,
     )
-    (errors, paramHist), secs = timeit(gd)
+    paramHist, secs = timeit(gd)
+    errors = [multinomial_logreg_error(Xs_tr, Ys_tr, param) for param in paramHist]
     for i, j in enumerate(errors):
         print(f"Accuracy Measurement {i+1}: {1-j}")
     print(f"Gradient Descent (1000 Iters) Took {secs} Seconds")
@@ -310,7 +296,10 @@ if __name__ == "__main__":
         num_epochs=10,
         monitor_period=monitor_period,
     )
-    (errorsSGD, paramHistSGD), secs = timeit(sgd)
+    paramHistSGD, secs = timeit(sgd)
+    errorsSGD = [
+        multinomial_logreg_error(Xs_tr, Ys_tr, param) for param in paramHistSGD
+    ]
     for i, j in enumerate(errorsSGD):
         print(f"Accuracy Measurement {i+1}: {1-j}")
     print(f"SGD Normal B={batch}, A={alpha}, gamma={gamma} Took {secs} Seconds\n")
@@ -327,7 +316,11 @@ if __name__ == "__main__":
         num_epochs=10,
         monitor_period=monitor_period,
     )
-    (errorsSGDS, paramHistSGDS), secs = timeit(sgds)
+    paramHistSGDS, secs = timeit(sgds)
+    errorsSGDS = [
+        multinomial_logreg_error(Xs_tr, Ys_tr, param) for param in paramHistSGDS
+    ]
+
     for i, j in enumerate(errorsSGDS):
         print(f"Accuracy Measurement {i+1}: {1-j}")
     print(f"SGD Sequential B={batch}, A={alpha}, gamma={gamma} Took {secs} Seconds\n")
@@ -344,7 +337,10 @@ if __name__ == "__main__":
         num_epochs=10,
         monitor_period=monitor_period,
     )
-    (errorsSGDRS, paramHist), secs = timeit(sgdrs)
+    paramHistSGDRS, secs = timeit(sgdrs)
+    errorsSGDRS = [
+        multinomial_logreg_error(Xs_tr, Ys_tr, param) for param in paramHistSGDRS
+    ]
     for i, j in enumerate(errorsSGDRS):
         print(f"Accuracy Measurement {i+1}: {1-j}")
     print(

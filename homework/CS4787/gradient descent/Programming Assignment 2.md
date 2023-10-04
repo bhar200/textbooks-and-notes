@@ -1,10 +1,5 @@
-
+Bryant Har
 # To Address
-
-
-To convert the measurements to one hot encodings,
-### Forgot but are raw unconverted predictions supposed to be >1
-### make sure conversions back to encodings are correct (use logits instead?)
 ### Not converging faster for shuffle?
 
 
@@ -27,26 +22,27 @@ Below, observe it took 21.781 seconds for 10 iterations. Multiplying by 100, thi
 It is significantly faster with numpy optimizations (30x). Due to using C structures and vectorization abstracted away by numpy libraries.
 ![[Pasted image 20230929011850.png|500]]
 
-
-1000 Iterations,
-![[Pasted image 20230929162402.png|500]]
-![[Pasted image 20230929123151.png|500]]
-![[Pasted image 20230929123139.png|500]]
-![[Pasted image 20230929123055.png|500]]
-
-
-
-
-![[Pasted image 20230929162500.png]]
-![[Pasted image 20230929162507.png]]
-![[Pasted image 20230929162516.png]]
-
+### Q5
 We clearly see that there is a tradeoff between batch size, step size, and speed. Batch size = 1 usually took triple the time as B=60, but because there were more total updates to the weights and a finer step size, it could converge to a better value.
 
-(Check convergence)
+We see the GD error and loss graphs go down with more training iterations, as accuracy increases. The error graphs are very slightly less steep due to the L2 regularization term penalizing complexity.
 
-We see the GD graphs error graphs go down, as accuracy increases, while loss is bowl shaped, due to the L2 regularization term dominating as model complexity increases.
-NEVERMIND!FAILS WHEN REMOVING L2
-Maybe just say that and hope they dont ntice
+![[Pasted image 20231002113528.png|500]]
+![[Pasted image 20231002114317.png|500]]
+![[Pasted image 20231002114409.png|500]]
+![[Pasted image 20231002114432.png|500]]
+![[Pasted image 20231002115054.png|500]]
+![[Pasted image 20231002115125.png|500]]
+![[Pasted image 20231002115213.png|500]]
 
-happens when loss of 0 -> log of 0 is inf, and guess is also wrong.
+
+
+### Q7
+1000 Iterations,
+![[Pasted image 20230929162402.png|500]]
+![[Pasted image 20231002114743.png|500]]
+![[Pasted image 20231002114800.png|500]]
+![[Pasted image 20231002114816.png|500]]
+![[Pasted image 20230929162500.png|500]]
+![[Pasted image 20230929162507.png|500]]
+![[Pasted image 20230929162516.png|500]]
