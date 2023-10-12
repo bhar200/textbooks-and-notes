@@ -1,4 +1,4 @@
 
 ### [[Git Quick Commands]]
 
-### [[CS4787]]
+### [[CS4787 Problem Set 2]]

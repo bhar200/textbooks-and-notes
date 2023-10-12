@@ -4,24 +4,26 @@
     "type": "split",
     "children": [
       {
-        "id": "b320f9485633483f",
+        "id": "ef06bdef213fab02",
         "type": "tabs",
         "children": [
           {
-            "id": "58fb2faf3aab45f1",
+            "id": "755f5447a8292103",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "pdf",
+              "state": {
+                "file": "homework/CS4787/pset3.pdf"
+              }
             }
           },
           {
-            "id": "1664c0efd889c7ea",
+            "id": "27639521ac1cc697",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "To Do.md",
+                "file": "homework/CS4787/Problem Set 3.md",
                 "mode": "source",
                 "source": false
               }
@@ -57,7 +59,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "shakespear",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,8 +75,19 @@
               "type": "bookmarks",
               "state": {}
             }
+          },
+          {
+            "id": "3aed1c5117572902",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "homework/CS4787/Problem Set 3.md"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -94,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "To Do.md",
+                "file": "homework/CS4787/Problem Set 3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "To Do.md",
+                "file": "homework/CS4787/Problem Set 3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "To Do.md"
+                "file": "homework/CS4787/Problem Set 3.md"
               }
             }
           }
@@ -155,36 +168,40 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1664c0efd889c7ea",
+  "active": "27639521ac1cc697",
   "lastOpenFiles": [
-    "notes/Large Scale ML/lecture12.html",
-    "notes/Large Scale ML/lecture12_files/require.min.js",
-    "notes/Large Scale ML/lecture12_files/autoencoder.png",
-    "notes/Large Scale ML/lecture12_files/MathJax.js",
-    "notes/Large Scale ML/lecture12_files",
-    "notes/Large Scale ML/lecture12 (1).pdf",
-    "notes/Large Scale ML/Unconfirmed 843821.crdownload",
-    "To Do.md",
+    "homework/CS4787/pset3.pdf",
+    "homework/CS4787/Problem Set 3.md",
+    "2023-10-10.md",
+    "Untitled.canvas",
+    "notes/Large Scale ML/lecture12.pdf",
+    "homework/CS4787/Unconfirmed 326000.crdownload",
+    "notes/Large Scale ML/lecture13.pdf",
+    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
+    "notes/Large Scale ML/Unconfirmed 513496.crdownload",
+    "homework/CS4787/Untitled",
     "homework/CS4787/gradient descent/Programming Assignment 2.md",
-    "shakespeare/Richard II.md",
-    "homework/old homeworks/PSET 6.pdf",
-    "shakespeare/Pasted image 20231002115213.png",
-    "shakespeare/Pasted image 20231002115125.png",
-    "shakespeare/Pasted image 20231002115054.png",
-    "shakespeare/Pasted image 20231002114816.png",
-    "shakespeare/Pasted image 20231002114800.png",
-    "shakespeare/Pasted image 20231002114743.png",
-    "shakespeare/Pasted image 20231002114432.png",
-    "shakespeare/Pasted image 20231002114409.png",
-    "shakespeare/Pasted image 20231002114351.png",
+    "homework/CS4787/gradient descent/Project 2 _ CS 4787_5777 Fall 2022.pdf",
+    "homework/CS4787/gradient descent/Programming Assignment 2.pdf",
+    "PSET 5.pdf",
+    "homework/old homeworks/2800 ps3.pdf",
     "homework/AEP 4200/PSET 5.md",
-    "homework/AEP 4200/Q25 4200.pdf",
-    "notes/quantum/Lecture 15 - Finishing ‘Flat’ potentials.pdf",
-    "notes/quantum/Lecture 14 - Tunneling.pdf",
-    "notes/quantum/Lecture 13 - Scattering states.pdf",
+    "shakespeare/Pasted image 20231006235347.png",
+    "shakespeare/Pasted image 20231006235323.png",
+    "shakespeare/Pasted image 20231006235239.png",
+    "shakespeare/Pasted image 20231006232233.png",
+    "shakespeare/Pasted image 20231006232151.png",
+    "shakespeare/Pasted image 20231006232138.png",
+    "shakespeare/Pasted image 20231006231826.png",
+    "shakespeare/Pasted image 20231006231713.png",
+    "shakespeare/Pasted image 20231005133801.png",
+    "shakespeare/Pasted image 20231005133749.png",
+    "shakespeare/Richard II.md",
+    "notes/quantum/Math Remarks for Quantum States.md",
+    "notes/quantum/Quantum Harmonic Oscillator.md",
+    "To Do.md",
     "shakespeare/Two Gentlemen of Verona.md",
-    "homework/CS4787/backprop/CS4787.md",
-    "Richard III.md",
+    "shakespeare/Richard III.md",
     "Programming.md",
     "homework/AEP 3300/PSET 6.md",
     "homework/AEP 4200/Q25 4200.md",
@@ -194,7 +211,6 @@
     "homework/CS4787.md",
     "CS4787.md",
     "shakespeare.md",
-    "Untitled.canvas",
     "textbook/README.md"
   ]
 }
