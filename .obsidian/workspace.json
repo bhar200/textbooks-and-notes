@@ -23,7 +23,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "shakespeare/Richard II.md",
                 "mode": "source",
                 "source": false
               }
@@ -59,7 +59,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "shakespear",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -82,12 +82,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md"
+                "file": "shakespeare/Richard II.md"
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -107,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "shakespeare/Richard II.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "shakespeare/Richard II.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -147,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md"
+                "file": "shakespeare/Richard II.md"
               }
             }
           }
@@ -170,8 +170,8 @@
   },
   "active": "27639521ac1cc697",
   "lastOpenFiles": [
-    "homework/CS4787/pset3.pdf",
     "homework/CS4787/Problem Set 3.md",
+    "homework/CS4787/pset3.pdf",
     "2023-10-10.md",
     "Untitled.canvas",
     "notes/Large Scale ML/lecture12.pdf",
