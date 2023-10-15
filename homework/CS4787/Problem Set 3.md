@@ -1,5 +1,44 @@
 ## Q1
+##### Part A
+We begin,
+$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
+$$f(w) = \frac{w^2}{2} \implies \nabla f(w)=w$$
+$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
+$$f(w_{t+1})=\frac{1}{2}\bigg[w_t^2-2w_t\alpha\nabla f_i(w_t)+\alpha^2(\nabla f_i(w_t))^2\bigg]$$
+Over expectation,
+$$E[\nabla f_i(w)]=f(w) \implies 
+E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}E[(\nabla f_i(w_t))^2]$$
+$$E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}w_t^2+\frac{\alpha^2}{2}\sigma^2$$
+$$E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}w_t^2+\frac{\alpha^2}{2}\sigma^2$$
+$$E[f(w_{t+1})]=(1-\alpha)^2E[f(w_t)]+\frac{\alpha^2\sigma^2}{2}$$
+Applying the recurrence over 2K iterations,
+$$E[f(w_{2K})]=(1-\alpha)^{4K}f(w_0)+\sum_{i=0}^{2K-1}
+(1-\alpha)^{2i}\bigg[\frac{\alpha^2\sigma^2}{2}\bigg]$$
+$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\sum_{i=0}^{2K-1}
+(1-\alpha)^{2i}\bigg[\frac{\alpha^2\sigma^2}{2}\bigg]$$
+Since $\alpha<1/2$, by geometric series:
+$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{\alpha^2\sigma^2}{2}\sum_{i=0}^{2K-1}
+(1-\alpha)^{2i}$$
+$$\boxed{E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{2}}\frac{\alpha^{2}\sigma^{2}}{2}}$$
+This can be simplified considerably if we simply seek an upper bound. For example, the notes bound the variance term by a much simpler expression. I opt to keep the full summation for exactness.
+##### Part B
+In our exact expression, we arrive at
+$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{2}}\frac{\alpha^{2}\sigma^{2}}{2}$$
+We now apply the book simplification. The right variance term is bounded above by $\frac{\alpha^{2}\sigma^{2}}{2}$ for $K\geq1$ which we require, and further since $\alpha<1$,
+$$E[f(w_{2K})]\leq\frac{(1-\alpha)^{4K}}{2}+\frac{\alpha^{2}\sigma^{2}}{2}\leq\frac{(1-\alpha)^{4K}}{2}+\alpha\sigma^{2}$$$$1-x \leq e^{-x} \implies E[f(w_{2K})]\leq \frac{e^{-4\alpha K}}{2}+\alpha\sigma^{2}$$Differentiating by $\alpha$ to minimize the loss,
+$$0=-2Ke^{-4\alpha K}+\sigma^{2} \implies \alpha = \frac{1}{4K}\ln(2K/\sigma^2)$$
+$$\implies 
 
+E[f(w_{2K})]\leq \frac{\sigma^{2}}{4K}+\frac{\sigma^{2}}{4K}\ln(2K/\sigma^2)=\frac{\sigma^{2}}{4K}\ln(2eK/\sigma^2)
+$$
+$$\boxed{E[f(w_{2K})]\leq\frac{\sigma^{2}}{4K}\ln(2eK/\sigma^2) \implies \Omega\bigg(\frac{\log(K)}{K}\bigg)}$$
+##### Part C
+
+
+
+
+
+##### Part B
 
 
 ## Q2 - Nesterov Momentum
