@@ -24,7 +24,7 @@ $$E[f(w_{2K})]\geq
 We arrive at the desired result.
 $$E[f(w_{2K})]\geq
 \frac{1}{16K} \implies \boxed{E[f(w_{2K})]=\Omega\bigg(\frac{1}{K}\bigg)}$$
-A tighter constant $c$ is certainly possible, but the overall asymptotic lower bound will be the same.
+A tighter constant $c$ is possible, but the resulting asymptotic lower bound will be the same.
 
 ##### Part C
 We begin,
