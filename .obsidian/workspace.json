@@ -11,9 +11,11 @@
             "id": "755f5447a8292103",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "homework/CS4787/pset3.pdf"
+                "file": "homework/CS4787/Problem Set 3.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -69,7 +71,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/pset3.pdf"
+                "file": "homework/CS4787/Problem Set 3.md"
               }
             }
           }
@@ -93,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/CS4787/pset3.pdf",
+                "file": "homework/CS4787/Problem Set 3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/CS4787/pset3.pdf",
+                "file": "homework/CS4787/Problem Set 3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +135,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/pset3.pdf"
+                "file": "homework/CS4787/Problem Set 3.md"
               }
             }
           }
@@ -156,8 +158,8 @@
   },
   "active": "755f5447a8292103",
   "lastOpenFiles": [
-    "homework/CS4787/Problem Set 3.md",
     "homework/CS4787/pset3.pdf",
+    "homework/CS4787/Problem Set 3.md",
     "shakespeare/Richard II.md",
     "2023-10-10.md",
     "Untitled.canvas",

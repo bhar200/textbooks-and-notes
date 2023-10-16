@@ -2,42 +2,49 @@
 ##### Part A
 We begin,
 $$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
-$$f(w) = \frac{w^2}{2} \implies \nabla f(w)=w$$
+$$f(w) = \frac{1}{2}(f_1+f_2) \implies \nabla f_i(w)=w\pm1$$
 $$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
 $$f(w_{t+1})=\frac{1}{2}\bigg[w_t^2-2w_t\alpha\nabla f_i(w_t)+\alpha^2(\nabla f_i(w_t))^2\bigg]$$
 Over expectation,
 $$E[\nabla f_i(w)]=f(w) \implies 
 E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}E[(\nabla f_i(w_t))^2]$$
-$$E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}w_t^2+\frac{\alpha^2}{2}\sigma^2$$
-$$E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}w_t^2+\frac{\alpha^2}{2}\sigma^2$$
-$$E[f(w_{t+1})]=(1-\alpha)^2E[f(w_t)]+\frac{\alpha^2\sigma^2}{2}$$
+$$E[f(w_{t+1})|w_t]=\frac{w_t^2}{2}-\alpha w^2_t+\frac{\alpha^2}{2}E[w_t^2\pm 2w_t+1]$$
+$$E[f(w_{t+1})|w_t]=f(w_t)-2\alpha f(w_t)+\alpha^2f(w_t)+\alpha^2/2$$
+$$E[f(w_{t+1})|w_t]=(1-\alpha)^2E[f(w_t)]+\frac{\alpha^2}{2}$$
 Applying the recurrence over 2K iterations,
-$$E[f(w_{2K})]=(1-\alpha)^{4K}f(w_0)+\sum_{i=0}^{2K-1}
-(1-\alpha)^{2i}\bigg[\frac{\alpha^2\sigma^2}{2}\bigg]$$
-$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\sum_{i=0}^{2K-1}
-(1-\alpha)^{2i}\bigg[\frac{\alpha^2\sigma^2}{2}\bigg]$$
-Since $\alpha<1/2$, by geometric series:
-$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{\alpha^2\sigma^2}{2}\sum_{i=0}^{2K-1}
-(1-\alpha)^{2i}$$
-$$\boxed{E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{2}}\frac{\alpha^{2}\sigma^{2}}{2}}$$
-This can be simplified considerably if we simply seek an upper bound. For example, the notes bound the variance term by a much simpler expression. I opt to keep the full summation for exactness.
+$$E[f(w_{2K})]=(1-\alpha)^{4K}f(w_0)+\alpha^2/2\sum_{2K-1}(1-\alpha)^{2i}=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^2}\alpha^2/2$$
+$$\boxed{E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^2}\frac{\alpha^2}{2}}$$
 ##### Part B
-In our exact expression, we arrive at
-$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{2}}\frac{\alpha^{2}\sigma^{2}}{2}$$
-We now apply the book simplification. The right variance term is bounded above by $\frac{\alpha^{2}\sigma^{2}}{2}$ for $K\geq1$ which we require, and further since $\alpha<1$,
-$$E[f(w_{2K})]\leq\frac{(1-\alpha)^{4K}}{2}+\frac{\alpha^{2}\sigma^{2}}{2}\leq\frac{(1-\alpha)^{4K}}{2}+\alpha\sigma^{2}$$$$1-x \leq e^{-x} \implies E[f(w_{2K})]\leq \frac{e^{-4\alpha K}}{2}+\alpha\sigma^{2}$$Differentiating by $\alpha$ to minimize the loss,
-$$0=-2Ke^{-4\alpha K}+\sigma^{2} \implies \alpha = \frac{1}{4K}\ln(2K/\sigma^2)$$
-$$\implies 
+We apply the following identity, which is valid for $\alpha \in (0,1/2)$,
+$$1-\alpha \geq e^{-2\alpha} \implies E[f(w_{2K})]\geq \frac{e^{-8K\alpha}}{2}+\frac{1-e^{-8K\alpha}}{1-e^{-4\alpha}}\frac{\alpha^2}{2}\geq \frac{e^{-8K\alpha}}{2}+\frac{\alpha^2}{2}$$$$E[f(w_{2K})]\geq
+\frac{e^{-8K\alpha}}{2}+\frac{\alpha^2}{2}$$Using our result from a, we differentiate wrt $\alpha$ to minimize the loss,
+$$0=\alpha-4K e^{-8K\alpha} \implies \frac{\alpha}{8K}+\frac{\alpha^2}{2}$$
+$$E[f(w_{2K})]\geq
+\frac{\alpha}{8K}+\frac{\alpha^2}{2}\geq \frac{\alpha}{8K} \geq \frac{1}{16K}$$
+We arrive at the desired result.
+$$E[f(w_{2K})]\geq
+\frac{1}{16K} \implies \boxed{E[f(w_{2K})]=\Omega\bigg(\frac{1}{K}\bigg)}$$
+A tighter constant $c$ is certainly possible, but the overall asymptotic lower bound will be the same.
 
-E[f(w_{2K})]\leq \frac{\sigma^{2}}{4K}+\frac{\sigma^{2}}{4K}\ln(2K/\sigma^2)=\frac{\sigma^{2}}{4K}\ln(2eK/\sigma^2)
-$$
-$$\boxed{E[f(w_{2K})]\leq\frac{\sigma^{2}}{4K}\ln(2eK/\sigma^2) \implies \Omega\bigg(\frac{\log(K)}{K}\bigg)}$$
 ##### Part C
-
-
-
-
-
+We begin,
+$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
+$$f(w) = \frac{w^2}{2} \implies \nabla f(w)=w$$
+$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
+We necessarily must run through both at once per epoch,
+$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
+$$w_{t+1}=w_t-\alpha\nabla (w_t^2/2+w_t)$$
+$$w_{t+1}=(1-\alpha)w_t-\alpha$$
+$$w_{k+1}=(1-\alpha)((1-\alpha)w_t-\alpha)+\alpha$$
+$$w_{k+1}=(1-\alpha)((1-\alpha)w_t+\alpha)-\alpha$$
+$$w_{k+1}=(1-\alpha)^2w_k-\alpha^2$$
+$$w_{k+1}=(1-\alpha)^2w_k+\alpha^2$$
+$$f(w_{k+1})=(1-\alpha)^4f(w_k)+\alpha^4/2-\alpha^2(1-\alpha)^2$$
+$$f(w_{k+1})=(1-\alpha)^4f(w_k)+\alpha^4/2+\alpha^2(1-\alpha)^2$$
+$$E(f(w_{k+1}))=(1-\alpha)^4E(f(w_k))+\alpha^4/2$$
+$$E(f(w_{k+1}))=(1-\alpha)^{4K}E(f(w_0))+\alpha^{4}/2\sum_{i=0}^{K}(1-\alpha)^{4i}$$
+$$E(f(w_{k+1}))=(1-\alpha)^{4K}/2+\alpha^{4}/2\sum_{i=0}^{K}(1-\alpha)^{4i}$$
+$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{4}}\frac{\alpha^{4}}{2}$$
 ##### Part B
 
 
