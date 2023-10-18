@@ -18,36 +18,39 @@ $$\boxed{E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\a
 We apply the following identity, which is valid for $\alpha \in (0,1/2)$,
 $$1-\alpha \geq e^{-2\alpha} \implies E[f(w_{2K})]\geq \frac{e^{-8K\alpha}}{2}+\frac{1-e^{-8K\alpha}}{1-e^{-4\alpha}}\frac{\alpha^2}{2}\geq \frac{e^{-8K\alpha}}{2}+\frac{\alpha^2}{2}$$$$E[f(w_{2K})]\geq
 \frac{e^{-8K\alpha}}{2}+\frac{\alpha^2}{2}$$Using our result from a, we differentiate wrt $\alpha$ to minimize the loss,
-$$0=\alpha-4K e^{-8K\alpha} \implies \frac{\alpha}{8K}+\frac{\alpha^2}{2}$$
+$$\alpha=4K e^{-8K\alpha} \implies \frac{\alpha}{8K}+\frac{\alpha^2}{2}$$
 $$E[f(w_{2K})]\geq
 \frac{\alpha}{8K}+\frac{\alpha^2}{2}\geq \frac{\alpha}{8K} \geq \frac{1}{16K}$$
-We arrive at the desired result.
+We arrive at the desired asymptotic bound. Graphing using Mathematica, we see this is indeed a valid and correct lower bound for all $\alpha$ and $K$.
 $$E[f(w_{2K})]\geq
 \frac{1}{16K} \implies \boxed{E[f(w_{2K})]=\Omega\bigg(\frac{1}{K}\bigg)}$$
-A tighter constant $c$ is possible, but the resulting asymptotic lower bound will be the same.
+as desired
 
 ##### Part C
 We begin,
 $$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
 $$f(w) = \frac{w^2}{2} \implies \nabla f(w)=w$$
+We necessarily must run through both component losses per epoch,
 $$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
-We necessarily must run through both at once per epoch,
-$$w_{t+1}=w_t-\alpha\nabla f_i(w_t)$$
-$$w_{t+1}=w_t-\alpha\nabla (w_t^2/2+w_t)$$
-$$w_{t+1}=(1-\alpha)w_t-\alpha$$
-$$w_{k+1}=(1-\alpha)((1-\alpha)w_t-\alpha)+\alpha$$
-$$w_{k+1}=(1-\alpha)((1-\alpha)w_t+\alpha)-\alpha$$
-$$w_{k+1}=(1-\alpha)^2w_k-\alpha^2$$
-$$w_{k+1}=(1-\alpha)^2w_k+\alpha^2$$
-$$f(w_{k+1})=(1-\alpha)^4f(w_k)+\alpha^4/2-\alpha^2(1-\alpha)^2$$
-$$f(w_{k+1})=(1-\alpha)^4f(w_k)+\alpha^4/2+\alpha^2(1-\alpha)^2$$
-$$E(f(w_{k+1}))=(1-\alpha)^4E(f(w_k))+\alpha^4/2$$
-$$E(f(w_{k+1}))=(1-\alpha)^{4K}E(f(w_0))+\alpha^{4}/2\sum_{i=0}^{K}(1-\alpha)^{4i}$$
-$$E(f(w_{k+1}))=(1-\alpha)^{4K}/2+\alpha^{4}/2\sum_{i=0}^{K}(1-\alpha)^{4i}$$
-$$E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-\alpha)^{4}}\frac{\alpha^{4}}{2}$$
-##### Part B
-
-
+$$w_{t+1}=(1-\alpha)w_t \pm\alpha$$
+Using the adjacent component loss in the next iteration,
+$$w_{t+2}=(1-\alpha)((1-\alpha)w_t\pm\alpha)\mp\alpha$$
+$$w_{t+2}=(1-\alpha)^2w_t\pm\alpha^2$$
+$$f(w_{t+2})=(1-\alpha)^4f(w_t)+\alpha^4/2 \pm \alpha^2(1-\alpha)^2$$
+$$E(f(w_{t+2}))=(1-\alpha)^4E(f(w_t))+\alpha^4/2$$
+$$E(f(w_{2K}))=(1-\alpha)^{4K}E(f(w_0))+\alpha^{4}/2\sum_{i=0}^{K-1}(1-\alpha)^{4i}$$
+$$\boxed{E[f(w_{2K})]=\frac{(1-\alpha)^{4K}}{2}+\frac{1-(1-\alpha)^{4K}}{1-(1-
+\alpha)^{4}}\frac{\alpha^{4}}{2}}$$
+##### Part D
+Looking back at the second term, since $\alpha$ is bounded between 0 and 1/2, we clearly see $\alpha$ multiplied by the coefficient cannot exceed 1. Therefore, we can ignore this coefficient and an $\alpha$ term to make the inequality,
+$$E[f(w_{2K})]\leq\frac{(1-\alpha)^{4K}}{2}+\frac{\alpha^{3}}{2}$$
+Applying the exponential inequality,
+$$E[f(w_{2K})]\leq\frac{e^{-4\alpha K}}{2}+\frac{\alpha^{3}}{2}$$
+Now to remove the exponential, let's pick $\alpha$ such that $\alpha=\frac{3\ln(K)}{4K}$. Then, our inequality $$E[f(w_{2K})]\leq\frac{e^{\ln(K^{-3})}}{2}+\frac{27\ln(K)^3}{128K^3}=\frac{1}{2K^3}+\frac{27\ln(K)^3}{128K^3}$$
+$$E[f(w_{2K})]\leq \frac{64+27\ln(K)^3}{128K^3} \implies E[f(w_{2K})] = \mathcal{O}\bigg(\frac{\log(K)^3}{K^3}\bigg)$$
+Equivalently,
+$$\mathcal{O}\bigg(\frac{\log(K)^3}{K^3}\bigg) \implies \boxed{\mathcal{O}\bigg(\frac{1}{K^2}\bigg)}$$
+as desired
 ## Q2 - Nesterov Momentum
 ##### Part A
 We begin,
@@ -192,7 +195,8 @@ $$|\lambda|^2=\begin{vmatrix}
 \\
 1 & 0
 \end{vmatrix}=(1-\alpha \gamma)\beta$$
-As desired, we arrive at
+Using our definitions, we see that as desired,
+$$\beta = \frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1},\ \ \ \alpha = 1/L \implies |\lambda|^2=(1-\alpha \gamma)\beta=(1-\frac{\gamma}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}$$
 $$\boxed{|\lambda|^2=(1-\frac{\gamma}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}}$$
 Further, to maximize $\lambda$ within this range, we clearly must minimize $1-\gamma/L$. 
 Therefore, in the upper bound, we require $\gamma=\mu$.
@@ -200,11 +204,11 @@ $$\implies |\lambda|^2\leq(1-\frac{\mu}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+
 \frac{\kappa-1}{\kappa}\frac{\kappa-1}{(\sqrt{\kappa}+1)^2}$$
 $$\implies |\lambda|\leq\frac{\kappa-1}{\sqrt{\kappa}(\sqrt\kappa+1)}=\frac{\sqrt\kappa-1}{\sqrt{\kappa}}=1-\frac{1}{\sqrt{\kappa}}$$
 As desired, we arrive at an upper bound,
-$$\implies \boxed{\lambda \leq 1-\frac{1}{\sqrt{\kappa}}}$$
+$$\implies \boxed{|\lambda| \leq 1-\frac{1}{\sqrt{\kappa}}}$$
 ##### Part D
 In effect, we combine the results from parts a-c. We take the gradient, 
 $$f = \frac{1}{2}w^TAw \implies \nabla f = Aw$$
-Using our scalar result from a, we replace $\gamma$ with $A$ and ones with the identity matrix accordingly,
+Using our scalar result from a, we see that the computation is identical where $\gamma$ is $A$ and ones with the identity matrix accordingly,
 $$\begin{bmatrix}
 v_{t+1}\\ v_{t}
 \end{bmatrix}
@@ -218,9 +222,18 @@ v_{t+1}\\ v_{t}
 \begin{bmatrix}
 v_{1}\\ v_{0}
 \end{bmatrix}$$
-Note, however, that $A$'s singular values are bounded above and below by $\mu$ and $L$. Therefore, the operator norm of $A$ is bounded the same, and $A$ does not scale any vector by more than $\mu$ or $L$. Therefore, we can use our result from part C to similarly surmise,
-$$\lambda \leq 1-\frac{1}{\sqrt{\kappa}}$$
-As desired,
+We can simply compute the product of the eigenvalues as the determinant of $M$, since $|\lambda|^2=\mathrm{det}(M)$.
+$$\mathrm{det}(M)=0-(-\beta(I-\alpha A))=\beta(I-\alpha A)$$
+$$|\lambda|^2=\beta(I-\alpha A)
+
+=(1-\frac{A}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}
+$$
+Now we must show that the eigenvalues are bounded appropriately. Note that by assumption, $A$'s singular values are bounded above and below by $\mu$ and $L$. Therefore, the operator norm of $A$ is bounded by these same singular values as $\gamma$ in part c, and $A$ scales vectors bounded by $\mu$ and $L$. Therefore, the assumptions for part C are valid, and following the same steps exactly, we can use our result from part C to similarly surmise,
+$$|\lambda|^2=\beta(I-\alpha A)
+=(1-\frac{\mathrm{det}(A)}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}$$
+Since det($A$) is appropriately bounded by $\mu$ and $L$, we reuse our result from C and substitute $\gamma$ with det($A$) to get,
+$$|\lambda| \leq 1-\frac{1}{\sqrt{\kappa}}$$
+Collecting our results, we arrive at the desired result,
 $$\boxed{\begin{bmatrix}
 v_{t+1}\\ v_{t}
 \end{bmatrix}

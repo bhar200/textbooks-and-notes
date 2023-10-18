@@ -6,6 +6,7 @@
       {
         "id": "ef06bdef213fab02",
         "type": "tabs",
+        "dimension": 58.268733850129195,
         "children": [
           {
             "id": "755f5447a8292103",
@@ -13,24 +14,40 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "homework/AEP 4200/Q25 4200.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "195eda28c990b222",
+            "id": "adce3cc3e88317a7",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "pdf",
               "state": {
-                "currentVersion": "1.4.16"
+                "file": "homework/AEP 4200/PSET 5.pdf"
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
+      },
+      {
+        "id": "2233ee9cf2f12c1b",
+        "type": "tabs",
+        "dimension": 41.7312661498708,
+        "children": [
+          {
+            "id": "fe120cdf960ace0f",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "homework/AEP 3300/Problemset_8.pdf"
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +99,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md"
+                "file": "homework/AEP 4200/Q25 4200.md"
               }
             }
           }
@@ -106,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "homework/AEP 4200/Q25 4200.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md",
+                "file": "homework/AEP 4200/Q25 4200.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +163,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/Problem Set 3.md"
+                "file": "homework/AEP 4200/Q25 4200.md"
               }
             }
           }
@@ -167,26 +184,29 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "195eda28c990b222",
+  "active": "755f5447a8292103",
   "lastOpenFiles": [
-    "README.md",
+    "homework/CS4787/Problem Set 3.md",
+    "homework/AEP 4200/PSET 5.pdf",
+    "homework/CS4787/pset3.pdf",
+    "homework/AEP 3300/PSET 8.md",
+    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
+    "homework/AEP 4200/PSET 5.md",
+    "homework/AEP 3300/Problemset_8.pdf",
+    "homework/AEP 3300/PSET 6.md",
+    "homework/AEP 3300/Unconfirmed 713494.crdownload",
     "homework/AEP 3300/probset_7 2.pdf",
+    "homework/CS4787/gradient descent/Programming Assignment 2.pdf",
+    "Programming.md",
+    "README.md",
     "homework/AEP 3610/HW7-AEP3610_Fa2023 2.pdf",
     "homework/AEP 3610",
     "homework/3610",
     "homework/CS4787/3610",
-    "homework/CS4787/AEP",
-    "homework/CS4787/pset3.pdf",
-    "homework/CS4787/Problem Set 3.md",
     "shakespeare/Richard II.md",
     "2023-10-10.md",
     "Untitled.canvas",
-    "notes/Large Scale ML/lecture12.pdf",
-    "homework/CS4787/Unconfirmed 326000.crdownload",
-    "notes/Large Scale ML/lecture13.pdf",
-    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
     "homework/CS4787/gradient descent/Programming Assignment 2.md",
-    "homework/AEP 4200/PSET 5.md",
     "shakespeare/Pasted image 20231006235347.png",
     "shakespeare/Pasted image 20231006235323.png",
     "shakespeare/Pasted image 20231006235239.png",
@@ -202,8 +222,6 @@
     "To Do.md",
     "shakespeare/Two Gentlemen of Verona.md",
     "shakespeare/Richard III.md",
-    "Programming.md",
-    "homework/AEP 3300/PSET 6.md",
     "homework/AEP 4200/Q25 4200.md",
     "2023-09-20.md",
     "notes/Git Quick Commands.md",
