@@ -4,50 +4,47 @@
     "type": "split",
     "children": [
       {
-        "id": "ef06bdef213fab02",
-        "type": "tabs",
-        "dimension": 58.268733850129195,
+        "id": "036987945346071a",
+        "type": "split",
         "children": [
           {
-            "id": "755f5447a8292103",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "homework/AEP 4200/Q25 4200.md",
-                "mode": "source",
-                "source": false
+            "id": "9c58650d5fbfd2e9",
+            "type": "tabs",
+            "dimension": 67.57990867579909,
+            "children": [
+              {
+                "id": "909700f4e0941912",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "homework/AEP 3300/PSET 9.md",
+                    "mode": "source",
+                    "source": false
+                  }
+                }
               }
-            }
+            ]
           },
           {
-            "id": "adce3cc3e88317a7",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "homework/AEP 4200/PSET 5.pdf"
+            "id": "16055032a945e8eb",
+            "type": "tabs",
+            "dimension": 32.42009132420091,
+            "children": [
+              {
+                "id": "ff4cc83a192b37d0",
+                "type": "leaf",
+                "state": {
+                  "type": "pdf",
+                  "state": {
+                    "file": "homework/AEP 3300/problem_set9.pdf"
+                  }
+                }
               }
-            }
+            ]
           }
-        ]
-      },
-      {
-        "id": "2233ee9cf2f12c1b",
-        "type": "tabs",
-        "dimension": 41.7312661498708,
-        "children": [
-          {
-            "id": "fe120cdf960ace0f",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "homework/AEP 3300/Problemset_8.pdf"
-              }
-            }
-          }
-        ]
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -99,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 4200/Q25 4200.md"
+                "file": "homework/AEP 3300/PSET 9.md"
               }
             }
           }
@@ -123,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/AEP 4200/Q25 4200.md",
+                "file": "homework/AEP 3300/PSET 9.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/AEP 4200/Q25 4200.md",
+                "file": "homework/AEP 3300/PSET 9.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -163,7 +160,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 4200/Q25 4200.md"
+                "file": "homework/AEP 3300/PSET 9.md"
               }
             }
           }
@@ -184,29 +181,33 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "755f5447a8292103",
+  "active": "909700f4e0941912",
   "lastOpenFiles": [
-    "homework/CS4787/Problem Set 3.md",
-    "homework/AEP 4200/PSET 5.pdf",
-    "homework/CS4787/pset3.pdf",
+    "homework/AEP 3300/problem_set9.pdf",
+    "homework/AEP 3300/PSET 9.md",
     "homework/AEP 3300/PSET 8.md",
     "homework/CS4787/backprop/CS4787 Problem Set 2.md",
-    "homework/AEP 4200/PSET 5.md",
-    "homework/AEP 3300/Problemset_8.pdf",
-    "homework/AEP 3300/PSET 6.md",
-    "homework/AEP 3300/Unconfirmed 713494.crdownload",
-    "homework/AEP 3300/probset_7 2.pdf",
+    "homework/CS4787/backprop/Project 1 _ CS 4787_5777 Fall 2023.pdf",
+    "homework/CS4787/Problem Set 3.md",
     "homework/CS4787/gradient descent/Programming Assignment 2.pdf",
+    "homework/CS4787/gradient descent/Programming Assignment 2.md",
+    "homework/CS4787/gradient descent/Project 2 _ CS 4787_5777 Fall 2022.pdf",
+    "homework/CS4787/pset3.pdf",
+    "homework/AEP 3300/Problemset_8.pdf",
+    "homework/AEP 3300/Unconfirmed 80929.crdownload",
+    "homework/AEP 3610/HW7-AEP3610_Fa2023 2.pdf",
+    "PSET 8.pdf",
+    "shakespeare/Pasted image 20231019131347.png",
+    "shakespeare/Henry V.md",
+    "homework/AEP 3300/probset_7 2.pdf",
+    "homework/AEP 4200/Q25 4200.md",
+    "homework/AEP 4200/PSET 5.md",
+    "homework/AEP 3300/PSET 6.md",
     "Programming.md",
     "README.md",
-    "homework/AEP 3610/HW7-AEP3610_Fa2023 2.pdf",
-    "homework/AEP 3610",
-    "homework/3610",
-    "homework/CS4787/3610",
     "shakespeare/Richard II.md",
     "2023-10-10.md",
     "Untitled.canvas",
-    "homework/CS4787/gradient descent/Programming Assignment 2.md",
     "shakespeare/Pasted image 20231006235347.png",
     "shakespeare/Pasted image 20231006235323.png",
     "shakespeare/Pasted image 20231006235239.png",
@@ -216,13 +217,10 @@
     "shakespeare/Pasted image 20231006231826.png",
     "shakespeare/Pasted image 20231006231713.png",
     "shakespeare/Pasted image 20231005133801.png",
-    "shakespeare/Pasted image 20231005133749.png",
     "notes/quantum/Math Remarks for Quantum States.md",
     "notes/quantum/Quantum Harmonic Oscillator.md",
     "To Do.md",
     "shakespeare/Two Gentlemen of Verona.md",
-    "shakespeare/Richard III.md",
-    "homework/AEP 4200/Q25 4200.md",
     "2023-09-20.md",
     "notes/Git Quick Commands.md",
     "PSET 4.md",

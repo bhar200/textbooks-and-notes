@@ -6,7 +6,7 @@
     "pageSize": "Letter",
     "landscape": false,
     "margin": "0",
-    "downscalePercent": 60
+    "downscalePercent": 50
   },
   "readableLineLength": false,
   "attachmentFolderPath": "shakespeare"

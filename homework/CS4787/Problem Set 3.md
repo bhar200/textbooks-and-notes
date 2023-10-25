@@ -222,16 +222,19 @@ v_{t+1}\\ v_{t}
 \begin{bmatrix}
 v_{1}\\ v_{0}
 \end{bmatrix}$$
-We can simply compute the product of the eigenvalues as the determinant of $M$, since $|\lambda|^2=\mathrm{det}(M)$.
-$$\mathrm{det}(M)=0-(-\beta(I-\alpha A))=\beta(I-\alpha A)$$
-$$|\lambda|^2=\beta(I-\alpha A)
+We can simply compute the product of the eigenvalues as the determinant of $M$, since $|\lambda|^2=\mathrm{det}(M)$. 
 
-=(1-\frac{A}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}
+By the block matrix determinant identity, we have:
+$$|\lambda|^2=\mathrm{det}(M)=\mathrm{det}(0-(-\beta(I-\alpha A))=\beta(I-\alpha A))$$
+$$|\lambda|^2=\mathrm{det}(\beta(I-\alpha A))
+=\mathrm{det}(I-\frac{A}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}
 $$
-Now we must show that the eigenvalues are bounded appropriately. Note that by assumption, $A$'s singular values are bounded above and below by $\mu$ and $L$. Therefore, the operator norm of $A$ is bounded by these same singular values as $\gamma$ in part c, and $A$ scales vectors bounded by $\mu$ and $L$. Therefore, the assumptions for part C are valid, and following the same steps exactly, we can use our result from part C to similarly surmise,
-$$|\lambda|^2=\beta(I-\alpha A)
-=(1-\frac{\mathrm{det}(A)}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}$$
-Since det($A$) is appropriately bounded by $\mu$ and $L$, we reuse our result from C and substitute $\gamma$ with det($A$) to get,
+$$|\lambda|^2=\mathrm{det}(\beta(I-\alpha A))
+=\mathrm{det}(I-\frac{A}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}$$
+Now we must show that the expression and therefore the eigenvalues are bounded appropriately. Note that by assumption, $A$'s eigenvalues are bounded below by $\mu$ and above by $L$. Therefore, the operator norm of $A$ is bounded by the corresponding singular values $\sqrt{\lambda}=\sqrt{\mu}, \sqrt{L}$, and $A$ follows the same bounds as $\gamma$ in C by $\det(A)= |\lambda|^2$. In an equivalent argument, we can also recognize the above determinant as bounded by the eigenvalues of $A$, following from the eigenvalue equation form. Either way, since the eigenvalues of $A$ and the determinant expression are bounded by $\mu$ and $\lambda$, we conclude the assumptions for part C are valid in this scenario. Then reusing our steps and results from part C, we similarly surmise,
+$$|\lambda|^2=\det(\beta(I-\alpha A))
+=(1-\frac{\gamma}{L})\frac{\sqrt{\kappa}-1}{\sqrt{\kappa}+1}$$
+where $\gamma$ is again appropriately bounded by $\mu$ and $L$. We reuse our secondary result from C, then,
 $$|\lambda| \leq 1-\frac{1}{\sqrt{\kappa}}$$
 Collecting our results, we arrive at the desired result,
 $$\boxed{\begin{bmatrix}
@@ -251,7 +254,8 @@ $$\boxed{\lambda \leq 1-\frac{1}{\sqrt{\kappa}}}$$
 
 ## Q3 - Dimension Reduction
 ##### Part A
-We compute k-nearest neighbors with k=1 as follows with mostly valid python:
+We compute k-nearest neighbors with k=1 as follows with mostly valid python using
+$$d=||x-x_i||^2$$
 ```python
 def knn(x): #k = 1
 	nearest = float('inf')
@@ -265,11 +269,16 @@ def knn(x): #k = 1
 			label = yi
 	return label
 ```
+We can compute euclidean distance by simply taking the square root of the squared distance, but this adds computation and since square root preserves order, doesn't affect the ordering of vectors by distances.
 ##### Part B
-Subtracting elementwise and getting the norm costs $d+d+d-1$. Adding the comparison check after, this costs $2d$. This must be done for every training dataset example, or $3dn$. Finally, this routine must be run for every test example, or $3dnm$.
+Subtracting elementwise, squaring, and summing costs $d+d+d-1$. Adding the comparison check after, this costs $3d$. This must be done for every training dataset example, or $3dn$. Finally, the above routine must be run for every test example, or $3dnm$.
 $$\boxed{3dmn \text{ computations}=\mathcal{O}(dmn)}$$
 ##### Part C
-We repeat in mostly valid python but compute distances more efficiently:
+We repeat in mostly valid python but compute squared distances more efficiently. We compute the distance to the zero vector and compare nonzero element differences. Squared distance is computed as
+$$d=||x-x_i||^2=\langle x,x \rangle -2 \langle x,x_i\rangle+\langle x_i, x_i \rangle$$
+Since every distance is incremented by $\langle x,x \rangle$, it is irrelevant for comparison and we can drop it to improve computation. We only care about the differences in distances. 
+$$d'=\langle x_i, x_i \rangle-2 \langle x,x_i\rangle$$
+We can optimize these dot products with sparsity. The code is below,
 ```python
 def knn(x): #k = 1
 	nearest = float('inf')
@@ -280,13 +289,19 @@ def knn(x): #k = 1
 		idxs = xi['index']
 		vals = xi['vals']
 		#compute dist heuristic in O(nonzero elements)
-		dist = sum((x[idx]-val)**2 for (idx, val) in zip(idxs, vals))
+		xidotxi = sum((val)**2 for val in vals)
+		xdotxi = sum(val[i]*x[i] for i in range(len(vals)))
+		dist = xidotxi - 2*xdotxi
 		if dist < nearest:
 			nearest = dist
 			label = yi
 	return label
 ```
+Again, the square root preserves order, so we save computation by comparing the squared distances.
+
 ##### Part D
-The code is identical to before, except computing distances only requires iterating over the number of nonzero vector entries instead of all dimensions. Then, ignoring python quirks and zip() cost, we can replace $d$ in our previous computation with $pd$, where $0<p<1$.
-$$\boxed{3(pd)mn \text{ computations}=\mathcal{O}(pdmn)}$$
-If $p\approx 1$, using sparse data formats has no benefit, but for very sparse $p<<1$, this is far fewer computations.
+The code is identical to before, except computing distances only requires iterating over the number of nonzero vector entries instead of all dimensions. For each distance analog, we compute
+$$d'=\langle x_i, x_i \rangle-2 \langle x,x_i\rangle$$
+For each training example, we compute the dot product but only iterate over nonzero elements. There are an average $pd$ nonzero elements, costing $2pd-1$. We compute the dot product with itself and the test example. $4pd-2$. Combining them in the formula above involves scaling by 2 and subtracting scalars, for $2$ ops. We add another op for the comparison check. So each training example incurs $4pd+1$ operations. Over every training example, this costs, $4pdn+n$. So in total per example, we consume $4pdn+n$ operations. We have $m$ examples, for
+$$(4pdn+n)m \text{ computations}=\boxed{\mathcal{O}(pdmn)}$$
+If $p\approx 1$, using sparse data formats has no benefit, but for very sparse $p<<1$, the savings is significant.
