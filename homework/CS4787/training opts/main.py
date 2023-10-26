@@ -53,8 +53,13 @@ def load_MNIST_dataset():
 #     for the corresponding training set;
 #     use the specified batch_size and shuffle_train values for the training DataLoader;
 #     use a batch size of 100 and no shuffling for the test data loader
+from torch.utils.data import DataLoader
 def construct_dataloaders(train_dataset, test_dataset, batch_size, shuffle_train=True):
-	# TODO students should implement this
+	train_dataloader = DataLoader(train_dataset, batch_size = batch_size, shuffle = shuffle_train)
+	test_dataloader = DataLoader(test_dataset, batch_size =100, shuffle=False)
+	return (train_dataloader, test_dataloader)
+	
+	
 
 
 # evaluate a trained model on MNIST data
@@ -66,7 +71,14 @@ def construct_dataloaders(train_dataset, test_dataset, batch_size, shuffle_train
 # returns       tuple of (loss, accuracy), both python floats
 @torch.no_grad()
 def evaluate_model(dataloader, model, loss_fn):
-	# TODO students should implement this
+	loss = correct = total = 0
+	model.eval()
+	for (x, label) in dataloader:
+		pred = model(x)
+		loss += loss_fn(pred, label)
+		correct += label == pred
+		total += 1
+	return (loss, correct / total)
 
 # build a fully connected two-hidden-layer neural network for MNIST data, as in Part 1.1
 # use the default initialization for the parameters provided in PyTorch
