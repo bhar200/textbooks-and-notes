@@ -10,7 +10,7 @@
           {
             "id": "9c58650d5fbfd2e9",
             "type": "tabs",
-            "dimension": 67.57990867579909,
+            "dimension": 56.45714285714286,
             "children": [
               {
                 "id": "909700f4e0941912",
@@ -29,7 +29,7 @@
           {
             "id": "16055032a945e8eb",
             "type": "tabs",
-            "dimension": 32.42009132420091,
+            "dimension": 43.542857142857144,
             "children": [
               {
                 "id": "ff4cc83a192b37d0",
@@ -104,7 +104,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "6b94c27ac434ed89",
@@ -183,6 +184,9 @@
   },
   "active": "909700f4e0941912",
   "lastOpenFiles": [
+    "PSET 9.pdf",
+    "homework/AEP 4200/Note Oct 21, 2023.pdf",
+    "homework/AEP 4200/Unconfirmed 184632.crdownload",
     "homework/AEP 3300/problem_set9.pdf",
     "homework/AEP 3300/PSET 9.md",
     "homework/AEP 3300/PSET 8.md",
@@ -196,10 +200,8 @@
     "homework/AEP 3300/Problemset_8.pdf",
     "homework/AEP 3300/Unconfirmed 80929.crdownload",
     "homework/AEP 3610/HW7-AEP3610_Fa2023 2.pdf",
-    "PSET 8.pdf",
     "shakespeare/Pasted image 20231019131347.png",
     "shakespeare/Henry V.md",
-    "homework/AEP 3300/probset_7 2.pdf",
     "homework/AEP 4200/Q25 4200.md",
     "homework/AEP 4200/PSET 5.md",
     "homework/AEP 3300/PSET 6.md",

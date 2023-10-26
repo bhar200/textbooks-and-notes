@@ -57,17 +57,19 @@ $$\theta = \int\frac{\pm \frac{\ell}{ r^2}}{\sqrt{2\mu\big[E-U(r)-\frac{\ell^2}{
 Note that, $u=l/r \implies du = -l/r^2 dr$. Making this sub and absorbing the numerator into du, 
 $$\theta = \int\frac{-du}{\sqrt{2\mu\big[E+ku/l-\frac{u^2}{2\mu}\big]}}=\boxed{\theta=\int\frac{-du}{\sqrt{2\mu E+2\mu ku/l-u^2}}}$$
 ###### Part D
+We begin,
+$$\theta=\int\frac{-du}{\sqrt{2\mu E+2\mu ku/l-u^2}}$$
+Applying the arcsin formula,
+$$\int \frac{du}{\sqrt{au^2+bu+c}}=-\frac{1}{\sqrt{-a}}\arcsin(\frac{2au+b}{\sqrt{b^2-4ac}})$$
+$$
+\theta=\int\frac{-du}{\sqrt{2\mu E+2\mu ku/l-u^2}}
 
-# Awaiting integral page
-# Awaiting integral page
-# Awaiting integral page
-# Awaiting integral page
-# Awaiting integral page
+=
 
-
-
+\arcsin(\frac{-2u+2\mu k/l}{\sqrt{(2\mu k/l)^2+4(2\mu E)}})
++C_1$$
+Reorganizing terms, we arrive as desired
 $$\boxed{\theta + C= \arcsin(\frac{-2u+2\mu k/l}{\sqrt{(2\mu k/l)^2+8\mu E}})}$$
-
 ###### Part E
 $\fbox{Yes}$. 
 $\sin(\theta-\pi/2)=-\cos(\theta) \implies \theta -\pi/2 = \arcsin(\xi) \implies \theta = -\arccos(\xi)$. 
@@ -128,7 +130,44 @@ $$\boxed{\mathcal{H}=
 }$$
 ### Q5
 ###### Part A
+We find the Hamiltonian. While we can first find the lagrangian and then derive the Hamiltonian, we can more easily consider the hamiltonian as the total energy of the inertial system
+$$T=\frac{1}{2}mv^2,\ \ \ U=mgr\cos \theta$$
+$$L=T-U=\frac{1}{2}m(\dot r^2+r^2\dot \theta^2+r^2\sin^2(\theta)\dot\phi ^2)-mgr\cos(\theta)$$
+$$p_\phi =\frac{\partial L}{\partial \dot\phi}=mr^2\sin^2(\theta)\dot\phi$$
+$$ p_\theta =\frac{\partial L}{\partial \dot\theta}= mr^2\dot \theta$$
+$$p_r =\frac{\partial L}{\partial \dot r} = m\dot r$$$$
+H=\frac{1}{2}mv^2+mgr\cos(\theta)=\frac{1}{2}m(\dot r^2+r^2\dot \theta^2+r^2\sin^2(\theta)\dot\phi ^2)+mgr\cos(\theta)$$Substituting our momenta identities,
+$$\boxed{\mathcal H=\frac{p_r^2}{2m} + \frac{p_\theta^2}{2mr^2}+\frac{p_\phi ^2}{2mr^2\sin^2 \theta}+mgr\cos(\theta)}$$
+###### Part B
+$$\frac{\partial H}{\partial r}=-\dot p_r, \ \ \ \frac{\partial H}{\partial \theta}=-\dot p_\theta \ \ \ \frac{\partial H}{\partial \phi}=-\dot p_\phi$$
+$$\frac{\partial H}{\partial p_r}=\dot r,\ \ \ \frac{\partial H}{\partial p_\theta}=\dot \theta,\ \ \ \ \frac{\partial H}{\partial p_\phi}=\dot \phi$$
+$$\boxed{\dot p_r = \frac{p_\theta^2}{mr^3}+\frac{p_\phi^2}{mr^3\sin^2(\theta)}-mg\cos \theta,\ \ \ \dot r = \frac{p_r}{m}}$$
+$$
+\boxed{\dot p_\phi = 0,\ \ \ \dot \phi = \frac{p_\phi }{mr^2\sin^2 \theta}}
+$$
+$$
+\boxed{\dot p_\theta = 
+mgr\sin \theta
 
-
-
-###### Part A
++\frac{p_\phi ^2}{mr^2\sin^2 \theta}\cot\theta
+,\ \ \ 
+\dot \theta = 
+\frac{p_\phi }{mr^2\sin^2 \theta}
+}$$
+The $\phi$ equations are equivalent to the ones ones written for the lagrangrian. (Conservation of $\phi$ angular momentum).
+# fix
+# fix
+# fix
+# fix
+# fix
+###### Part C
+$\boxed{\text{There is rotational symmetry in the } \phi \text{ direction}}$.
+$p_\phi$ must be constant since time derivative is zero.
+###### Part D
+We desire $\phi$ direction momentum, so
+$\boxed{p_\phi = mr^2\dot\theta}$
+###### Part E
+$$p_\theta =mr^2\dot \theta \implies \dot p_\theta =mr^2\ddot \theta$$
+$$\dot p_\theta = 
+mgr\sin \theta+\frac{p_\phi ^2}{mr^2\sin^2 \theta}\cot \theta$$
+$$\boxed{mr^2\ddot \theta=mgr\sin \theta+\frac{p_\phi ^2}{mr^2\sin^2 \theta}\cot \theta}$$
