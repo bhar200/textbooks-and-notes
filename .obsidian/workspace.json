@@ -13,17 +13,7 @@
             "state": {
               "type": "pdf",
               "state": {
-                "file": "homework/CS4787/training opts/Project 3 _ CS 4787_5777 Fall 2023.pdf"
-              }
-            }
-          },
-          {
-            "id": "14f3e8dd8481fd93",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "homework/AEP 3300/problem_set9.pdf"
+                "file": "notes/Large Scale ML/lecture10.pdf"
               }
             }
           }
@@ -79,7 +69,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/training opts/Project 3 _ CS 4787_5777 Fall 2023.pdf"
+                "file": "notes/Large Scale ML/lecture10.pdf"
               }
             }
           }
@@ -104,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/CS4787/training opts/Project 3 _ CS 4787_5777 Fall 2023.pdf",
+                "file": "notes/Large Scale ML/lecture10.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -121,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/CS4787/training opts/Project 3 _ CS 4787_5777 Fall 2023.pdf",
+                "file": "notes/Large Scale ML/lecture10.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -144,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/training opts/Project 3 _ CS 4787_5777 Fall 2023.pdf"
+                "file": "notes/Large Scale ML/lecture10.pdf"
               }
             }
           }
@@ -165,23 +155,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9f41305103b6f21f",
+  "active": "909700f4e0941912",
   "lastOpenFiles": [
+    "notes/Large Scale ML/lecture11.pdf",
+    "notes/Large Scale ML/lecture14.pdf",
+    "notes/Large Scale ML/lecture9.pdf",
+    "notes/Large Scale ML/lecture8.pdf",
+    "notes/Large Scale ML/lecture10.pdf",
+    "notes/Large Scale ML/lecture17_html.pdf",
+    "notes/Large Scale ML/lecture17.pdf",
+    "notes/Large Scale ML/lecture16_html.pdf",
+    "notes/Large Scale ML/lecture16.pdf",
+    "notes/Large Scale ML/lecture15.pdf",
+    "notes/Large Scale ML/lecture13.pdf",
+    "notes/Large Scale ML/lecture12_files/autoencoder.png",
+    "notes/Large Scale ML/lecture2_files/Myrick_Cropped.jpg",
     "homework/AEP 3300/PSET 9.md",
-    "homework/AEP 3300/problem_set9.pdf",
-    "PSET 9.pdf",
-    "homework/AEP 4200/Note Oct 21, 2023.pdf",
-    "homework/AEP 4200/Unconfirmed 184632.crdownload",
     "homework/AEP 3300/PSET 8.md",
     "homework/CS4787/backprop/CS4787 Problem Set 2.md",
-    "homework/CS4787/backprop/Project 1 _ CS 4787_5777 Fall 2023.pdf",
     "homework/CS4787/Problem Set 3.md",
-    "homework/CS4787/gradient descent/Programming Assignment 2.pdf",
     "homework/CS4787/gradient descent/Programming Assignment 2.md",
-    "homework/CS4787/gradient descent/Project 2 _ CS 4787_5777 Fall 2022.pdf",
-    "homework/CS4787/pset3.pdf",
-    "homework/AEP 3300/Problemset_8.pdf",
-    "homework/AEP 3300/Unconfirmed 80929.crdownload",
     "shakespeare/Pasted image 20231019131347.png",
     "shakespeare/Henry V.md",
     "homework/AEP 4200/Q25 4200.md",
@@ -199,8 +192,6 @@
     "shakespeare/Pasted image 20231006232151.png",
     "shakespeare/Pasted image 20231006232138.png",
     "shakespeare/Pasted image 20231006231826.png",
-    "shakespeare/Pasted image 20231006231713.png",
-    "shakespeare/Pasted image 20231005133801.png",
     "notes/quantum/Math Remarks for Quantum States.md",
     "notes/quantum/Quantum Harmonic Oscillator.md",
     "To Do.md",
