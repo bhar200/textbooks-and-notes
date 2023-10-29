@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "9c58650d5fbfd2e9",
+        "id": "3d819288b024a1e2",
         "type": "tabs",
         "children": [
           {
-            "id": "909700f4e0941912",
+            "id": "5f550009a8c42d0c",
             "type": "leaf",
             "state": {
               "type": "pdf",
               "state": {
-                "file": "notes/Large Scale ML/lecture10.pdf"
+                "file": "notes/Large Scale ML/lecture12.pdf"
               }
             }
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/Large Scale ML/lecture10.pdf"
+                "file": "notes/Large Scale ML/lecture12.pdf"
               }
             }
           }
@@ -77,8 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "6b94c27ac434ed89",
@@ -94,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/Large Scale ML/lecture10.pdf",
+                "file": "notes/Large Scale ML/lecture12.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "notes/Large Scale ML/lecture10.pdf",
+                "file": "notes/Large Scale ML/lecture12.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "notes/Large Scale ML/lecture10.pdf"
+                "file": "notes/Large Scale ML/lecture12.pdf"
               }
             }
           }
@@ -155,31 +154,32 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "909700f4e0941912",
+  "active": "5f550009a8c42d0c",
   "lastOpenFiles": [
     "notes/Large Scale ML/lecture11.pdf",
-    "notes/Large Scale ML/lecture14.pdf",
+    "notes/Large Scale ML/lecture10.pdf",
+    "notes/Large Scale ML/lecture12.pdf",
+    "homework/AEP 3300/problem_set_10.pdf",
+    "notes/Large Scale ML/lecture9-demo.pdf",
     "notes/Large Scale ML/lecture9.pdf",
     "notes/Large Scale ML/lecture8.pdf",
-    "notes/Large Scale ML/lecture10.pdf",
-    "notes/Large Scale ML/lecture17_html.pdf",
-    "notes/Large Scale ML/lecture17.pdf",
-    "notes/Large Scale ML/lecture16_html.pdf",
-    "notes/Large Scale ML/lecture16.pdf",
-    "notes/Large Scale ML/lecture15.pdf",
-    "notes/Large Scale ML/lecture13.pdf",
+    "notes/Large Scale ML/lecture7.pdf",
+    "notes/Large Scale ML/lecture6.pdf",
+    "notes/Large Scale ML/lecture5.pdf",
+    "notes/Large Scale ML/lecture4.pdf",
+    "homework/AEP 3300/PSET 10.md",
+    "homework/AEP 3300/PSET 6.md",
+    "homework/AEP 3300/PSET 8.md",
+    "homework/AEP 3300/PSET 9.md",
+    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
     "notes/Large Scale ML/lecture12_files/autoencoder.png",
     "notes/Large Scale ML/lecture2_files/Myrick_Cropped.jpg",
-    "homework/AEP 3300/PSET 9.md",
-    "homework/AEP 3300/PSET 8.md",
-    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
     "homework/CS4787/Problem Set 3.md",
     "homework/CS4787/gradient descent/Programming Assignment 2.md",
     "shakespeare/Pasted image 20231019131347.png",
     "shakespeare/Henry V.md",
     "homework/AEP 4200/Q25 4200.md",
     "homework/AEP 4200/PSET 5.md",
-    "homework/AEP 3300/PSET 6.md",
     "Programming.md",
     "README.md",
     "shakespeare/Richard II.md",
