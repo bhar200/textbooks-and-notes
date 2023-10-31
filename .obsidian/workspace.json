@@ -4,17 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "3d819288b024a1e2",
+        "id": "af464872e11a2170",
         "type": "tabs",
         "children": [
           {
-            "id": "5f550009a8c42d0c",
+            "id": "0a59d7db5b93c889",
             "type": "leaf",
             "state": {
-              "type": "pdf",
-              "state": {
-                "file": "notes/Large Scale ML/lecture12.pdf"
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -68,9 +66,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "notes/Large Scale ML/lecture12.pdf"
-              }
+              "state": {}
             }
           }
         ]
@@ -93,7 +89,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/Large Scale ML/lecture12.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +105,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "notes/Large Scale ML/lecture12.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -132,9 +126,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "notes/Large Scale ML/lecture12.pdf"
-              }
+              "state": {}
             }
           }
         ]
@@ -154,25 +146,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5f550009a8c42d0c",
+  "active": "0a59d7db5b93c889",
   "lastOpenFiles": [
-    "notes/Large Scale ML/lecture11.pdf",
-    "notes/Large Scale ML/lecture10.pdf",
-    "notes/Large Scale ML/lecture12.pdf",
-    "homework/AEP 3300/problem_set_10.pdf",
-    "notes/Large Scale ML/lecture9-demo.pdf",
-    "notes/Large Scale ML/lecture9.pdf",
-    "notes/Large Scale ML/lecture8.pdf",
-    "notes/Large Scale ML/lecture7.pdf",
-    "notes/Large Scale ML/lecture6.pdf",
-    "notes/Large Scale ML/lecture5.pdf",
-    "notes/Large Scale ML/lecture4.pdf",
+    "homework/CS4787/Bryant Har Lectures condensed.pdf",
+    "homework/CS4787/Bryant Har Lectures condensed.md",
+    "Bryant Har Lectures condensed.pdf",
+    "Lecture 1-16 condensed.pdf",
+    "notes/Large Scale ML/lecture15.pdf",
+    "notes/Large Scale ML/lecture16.pdf",
+    "homework/AEP 3300/LectureworkIX__gravitation.pdf",
+    "notes/Large Scale ML/ViewPDF.pdf",
     "homework/AEP 3300/PSET 10.md",
-    "homework/AEP 3300/PSET 6.md",
-    "homework/AEP 3300/PSET 8.md",
-    "homework/AEP 3300/PSET 9.md",
-    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
+    "notes/Large Scale ML/lecture14.pdf",
+    "notes/Large Scale ML/lecture13.pdf",
+    "notes/Large Scale ML/lecture12_html.pdf",
+    "Lecture 1-12 condensed.pdf",
+    "Programming.md",
     "notes/Large Scale ML/lecture12_files/autoencoder.png",
+    "homework/AEP 3300/PSET 9.md",
+    "homework/AEP 3300/PSET 6.md",
+    "homework/CS4787/backprop/CS4787 Problem Set 2.md",
+    "2023-10-10.md",
+    "homework/AEP 3300/PSET 8.md",
     "notes/Large Scale ML/lecture2_files/Myrick_Cropped.jpg",
     "homework/CS4787/Problem Set 3.md",
     "homework/CS4787/gradient descent/Programming Assignment 2.md",
@@ -180,10 +175,8 @@
     "shakespeare/Henry V.md",
     "homework/AEP 4200/Q25 4200.md",
     "homework/AEP 4200/PSET 5.md",
-    "Programming.md",
     "README.md",
     "shakespeare/Richard II.md",
-    "2023-10-10.md",
     "Untitled.canvas",
     "shakespeare/Pasted image 20231006235347.png",
     "shakespeare/Pasted image 20231006235323.png",
@@ -201,7 +194,6 @@
     "PSET 4.md",
     "homework/CS4787.md",
     "CS4787.md",
-    "shakespeare.md",
-    "textbook/README.md"
+    "shakespeare.md"
   ]
 }
