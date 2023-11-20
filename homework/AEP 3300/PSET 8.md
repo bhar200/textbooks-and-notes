@@ -216,3 +216,8 @@ $$
 This says that the rotational speed of the little disk $\dot \phi$ is constant. This says that there is symmetry in the energy and momentum in the rotation of the little disk, and that $\fbox{Rotational Energy and Momentum is conserved in the little disk}$. No torques act on the little disk.
 
 
+
+
+
+
+
