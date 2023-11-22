@@ -70,6 +70,10 @@ def gaussian_pmf(u):
 #
 # returns   an (m x n) matrix Sigma where Sigma[i,j] = K(Xs[:,i], Zs[:,j])
 def rbf_kernel_matrix(Xs, Zs, gamma):
+    # if complaining about types, cast Cs and ys to floats. Xs.to(float)
+    # also consider changing dimension from dummy dimension fi result incorrect
+    norms = torch.cdist(Xs, Zs, p= 2)
+    return torch.exp(-gamma * (norms * norms))
     # TODO students should implement this
 
 # compute the distribution predicted by a Gaussian process that uses an RBF kernel (in PyTorch)
@@ -84,6 +88,7 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     # first, do any work that can be shared among predictions
     # TODO students should implement this
     # next, define a nested function to return
+
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance

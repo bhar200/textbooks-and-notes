@@ -93,4 +93,4 @@ M\begin{bmatrix}
 =
 \dfrac{2M{\rho}_\text{sc}^2\omega}{5}
 $$
-$$\boxed{\vec L = \dfrac{2M{\rho}_\text{sc}^2\omega}{5}}$$
+$$\boxed{\vec L = \dfrac{2M{\rho}_\text{sc}^2\omega}{5} \hat{e}_z}$$

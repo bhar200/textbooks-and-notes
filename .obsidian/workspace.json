@@ -4,28 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "b68febe05b93787f",
+        "id": "224b8212940279e8",
         "type": "tabs",
         "children": [
           {
-            "id": "d4470c57542859a7",
+            "id": "1257d7845f8aa8ac",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homework/AEP 3300/PSET 11.md",
+                "file": "homework/AEP 3300/PSET 12.md",
                 "mode": "source",
                 "source": false
-              }
-            }
-          },
-          {
-            "id": "bfb690f5b0fc5637",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "homework/AEP 3300/problemset_11.pdf"
               }
             }
           }
@@ -81,7 +71,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 11.md"
+                "file": "homework/AEP 3300/PSET 12.md"
               }
             }
           }
@@ -89,8 +79,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "6b94c27ac434ed89",
@@ -106,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/AEP 3300/PSET 11.md",
+                "file": "homework/AEP 3300/PSET 12.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/AEP 3300/PSET 11.md",
+                "file": "homework/AEP 3300/PSET 12.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +135,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 11.md"
+                "file": "homework/AEP 3300/PSET 12.md"
               }
             }
           }
@@ -167,8 +156,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d4470c57542859a7",
+  "active": "1257d7845f8aa8ac",
   "lastOpenFiles": [
+    "homework/AEP 3300/problemset_11.pdf",
+    "homework/AEP 3300/PSET 11.md",
     "homework/CS4787/hyperparam optimization/release/data/train-labels-idx1-ubyte.gz",
     "homework/CS4787/hyperparam optimization/release/data/train-images-idx3-ubyte.gz",
     "homework/CS4787/hyperparam optimization/release/data/t10k-labels-idx1-ubyte.gz",
@@ -179,10 +170,8 @@
     "homework/CS4787/hyperparam optimization/release/README.txt",
     "homework/CS4787/hyperparam optimization/release",
     "homework/CS4787/hyperparam optimization/pset4.pdf",
-    "homework/CS4787/hyperparam optimization/Project 5 _ CS 4787_5777 Fall 2023.pdf",
     "PSET 12.md",
     "homework/AEP 3300/PSET 12.md",
-    "homework/AEP 3300/PSET 11.md",
     "homework/AEP 4200/PSET 8.md",
     "homework/AEP 4200/PSET 5.md",
     "homework/AEP 3300/PSET 10.md",
