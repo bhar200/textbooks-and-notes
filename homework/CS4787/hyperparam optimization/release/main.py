@@ -88,7 +88,9 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     # first, do any work that can be shared among predictions
     # TODO students should implement this
     # next, define a nested function to return
-
+    K = rbf_kernel_matrix(Xs, Ys, gamma) + sigma2_noise * torch.eye(Xs.shape[1])
+    K_inv = torch.inverse(K)
+    
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance
