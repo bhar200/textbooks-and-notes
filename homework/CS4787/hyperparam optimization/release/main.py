@@ -94,6 +94,8 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance
+        mean = Xtest @ (K_inv @ Xtest) #what is k starr?
+        variance = rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)
         return (mean.reshape(()), variance.reshape(())) # be sure to return scalars!
     #finally, return the nested function
     return prediction_mean_and_variance
