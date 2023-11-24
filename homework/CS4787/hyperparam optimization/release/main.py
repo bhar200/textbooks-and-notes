@@ -189,7 +189,37 @@ def gradient_descent(objective, x0, alpha, num_iters):
 #   Xs              matrix of all points searched (size: d x num_iters)
 def bayes_opt(objective, d, gamma, sigma2_noise, acquisition, random_x, gd_nruns, gd_alpha, gd_niters, n_warmup, num_iters):
     # TODO students should implement this
-    
+    y_best = float('inf')
+    x_best = None
+    xis = torch.tensor() #dxn
+    yis = torch.tensor() # n
+    # warmup
+    for i in range(1, n_warmup+1):
+        xi = random_x()
+        yi = objective(xi)
+        xis = torch.cat(xis, xi, dim = 1)
+        yis = torch.cat(yis, yi, dim = 0)
+
+        if yi <= y_best:
+            y_best = yi
+            x_best = xi
+    for i in range(n_warmup+1, num_iters+1):
+        mu_var_func = gp_prediction(xis, yis, gamma = gamma, sigma2_noise=sigma2_noise)
+        def acquisition_objective(x_test):
+            mu, var = mu_var_func(x_test)
+            stdev = torch.sqrt(var)
+            return acquisition(y_best, mu, stdev)
+        yi_est = float('inf')
+        xi = None
+        for i in range(gd_nruns):
+            x_poss, y_poss = gradient_descent(acquisition_objective, random_x(), alpha=gd_alpha, num_iters=gd_niters)
+            if y_poss <= yi_est:
+                xi = x_poss
+                yi_est = y_poss
+        yi = objective(xi)
+        xis = torch.cat(xis, xi, dim = 1)
+        yis = torch.cat(yis, yi, dim = 0)
+    return x_best
 
 
 # a one-dimensional test objective function on which to run Bayesian optimization
