@@ -219,7 +219,11 @@ def bayes_opt(objective, d, gamma, sigma2_noise, acquisition, random_x, gd_nruns
         yi = objective(xi)
         xis = torch.cat(xis, xi, dim = 1)
         yis = torch.cat(yis, yi, dim = 0)
-    return x_best
+
+        if yi <= y_best:
+            y_best = yi
+            x_best = xi
+    return y_best, x_best, yis, xis
 
 
 # a one-dimensional test objective function on which to run Bayesian optimization
