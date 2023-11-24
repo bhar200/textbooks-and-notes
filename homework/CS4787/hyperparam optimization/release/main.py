@@ -90,17 +90,21 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     # next, define a nested function to return
     K = rbf_kernel_matrix(Xs, Ys, gamma) + sigma2_noise * torch.eye(Xs.shape[1])
     K_inv = torch.inverse(K)
-    
+
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance
-        mean = Xtest @ (K_inv @ Xtest) #what is k starr?
-        variance = rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)
+        K_star = rbf_kernel_matrix(Xs, Xtest, gamma=gamma)
+        mean = K_star.T @ (K_inv @ Ys)
+        variance = rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)+sigma2_noise - K_star.T @ (K_inv @ K_star)
         return (mean.reshape(()), variance.reshape(())) # be sure to return scalars!
     #finally, return the nested function
     return prediction_mean_and_variance
 
-
+'''
+This seems to want to return a function, but use cases suggest 
+the function itself is what is to be used...
+'''
 # compute the probability of improvement (PI) acquisition function
 #
 # Ybest     value at best "y"
@@ -110,6 +114,8 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
 # returns   PI acquisition function
 def pi_acquisition(Ybest, mean, stdev):
     # TODO students should implement this
+    
+    return -gaussian_cdf(Ybest - mean) / stdev
 
 
 # compute the expected improvement (EI) acquisition function
@@ -121,6 +127,11 @@ def pi_acquisition(Ybest, mean, stdev):
 # returns   EI acquisition function
 def ei_acquisition(Ybest, mean, stdev):
     # TODO students should implement this
+    argument = (Ybest - mean) / stdev
+    cdf_term = gaussian_cdf(argument)
+    pdf_term = gaussian_pmf(argument)
+    return -stdev * (pdf_term + argument * cdf_term)
+
 
 
 # return a function that computes the lower confidence bound (LCB) acquisition function
@@ -130,6 +141,7 @@ def ei_acquisition(Ybest, mean, stdev):
 # returns   function that computes the LCB acquisition function
 def lcb_acquisition(kappa):
     def A_lcb(Ybest, mean, stdev):
+        return mean - kappa*stdev
         # TODO students should implement this
     return A_lcb
 
@@ -177,6 +189,7 @@ def gradient_descent(objective, x0, alpha, num_iters):
 #   Xs              matrix of all points searched (size: d x num_iters)
 def bayes_opt(objective, d, gamma, sigma2_noise, acquisition, random_x, gd_nruns, gd_alpha, gd_niters, n_warmup, num_iters):
     # TODO students should implement this
+    
 
 
 # a one-dimensional test objective function on which to run Bayesian optimization
