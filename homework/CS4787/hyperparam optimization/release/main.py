@@ -7,10 +7,12 @@ import numpy
 import scipy.special
 import mnist
 from tqdm import tqdm
-matplotlib.use('agg')
+
+matplotlib.use("agg")
 from matplotlib import pyplot
 from matplotlib import animation
 import torch
+
 ## you may wish to import other things like torch.nn
 
 mnist_data_directory = os.path.join(os.path.dirname(__file__), "data")
@@ -18,14 +20,15 @@ mnist_data_directory = os.path.join(os.path.dirname(__file__), "data")
 ### hyperparameter settings and other constants
 ### end hyperparameter settings
 
+
 def load_MNIST_dataset_with_validation_split():
     PICKLE_FILE = os.path.join(mnist_data_directory, "MNIST.pickle")
     try:
-        dataset = pickle.load(open(PICKLE_FILE, 'rb'))
+        dataset = pickle.load(open(PICKLE_FILE, "rb"))
     except:
         # load the MNIST dataset
         mnist_data = mnist.MNIST(mnist_data_directory, return_type="numpy", gz=True)
-        Xs_tr, Lbls_tr = mnist_data.load_training();
+        Xs_tr, Lbls_tr = mnist_data.load_training()
         Xs_tr = Xs_tr.transpose() / 255.0
         Ys_tr = numpy.zeros((10, 60000))
         for i in range(60000):
@@ -33,15 +36,15 @@ def load_MNIST_dataset_with_validation_split():
         # shuffle the training data
         numpy.random.seed(8675309)
         perm = numpy.random.permutation(60000)
-        Xs_tr = numpy.ascontiguousarray(Xs_tr[:,perm])
-        Ys_tr = numpy.ascontiguousarray(Ys_tr[:,perm])
+        Xs_tr = numpy.ascontiguousarray(Xs_tr[:, perm])
+        Ys_tr = numpy.ascontiguousarray(Ys_tr[:, perm])
         # extract out a validation set
-        Xs_va = Xs_tr[:,50000:60000]
-        Ys_va = Ys_tr[:,50000:60000]
-        Xs_tr = Xs_tr[:,0:50000]
-        Ys_tr = Ys_tr[:,0:50000]
+        Xs_va = Xs_tr[:, 50000:60000]
+        Ys_va = Ys_tr[:, 50000:60000]
+        Xs_tr = Xs_tr[:, 0:50000]
+        Ys_tr = Ys_tr[:, 0:50000]
         # load test data
-        Xs_te, Lbls_te = mnist_data.load_testing();
+        Xs_te, Lbls_te = mnist_data.load_testing()
         Xs_te = Xs_te.transpose() / 255.0
         Ys_te = numpy.zeros((10, 10000))
         for i in range(10000):
@@ -49,17 +52,18 @@ def load_MNIST_dataset_with_validation_split():
         Xs_te = numpy.ascontiguousarray(Xs_te)
         Ys_te = numpy.ascontiguousarray(Ys_te)
         dataset = (Xs_tr, Ys_tr, Xs_va, Ys_va, Xs_te, Ys_te)
-        pickle.dump(dataset, open(PICKLE_FILE, 'wb'))
+        pickle.dump(dataset, open(PICKLE_FILE, "wb"))
     return dataset
 
 
 # compute the cumulative distribution function of a standard Gaussian random variable
 def gaussian_cdf(u):
-    return 0.5*(1.0 + torch.special.erf(u/math.sqrt(2.0)))
+    return 0.5 * (1.0 + torch.special.erf(u / math.sqrt(2.0)))
+
 
 # compute the probability mass function of a standard Gaussian random variable
 def gaussian_pmf(u):
-    return torch.exp(-u**2/2.0)/math.sqrt(2.0*math.pi)
+    return torch.exp(-(u**2) / 2.0) / math.sqrt(2.0 * math.pi)
 
 
 # compute the Gaussian RBF kernel matrix for a vector of data points (in PyTorch)
@@ -72,9 +76,12 @@ def gaussian_pmf(u):
 def rbf_kernel_matrix(Xs, Zs, gamma):
     # if complaining about types, cast Cs and ys to floats. Xs.to(float)
     # also consider changing dimension from dummy dimension fi result incorrect
-    norms = torch.cdist(Xs, Zs, p= 2)
+    print(Xs.shape)
+    print(Zs.shape)
+    norms = torch.cdist(Xs, Zs, p=2)
     return torch.exp(-gamma * (norms * norms))
     # TODO students should implement this
+
 
 # compute the distribution predicted by a Gaussian process that uses an RBF kernel (in PyTorch)
 #
@@ -88,7 +95,7 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     # first, do any work that can be shared among predictions
     # TODO students should implement this
     # next, define a nested function to return
-    K = rbf_kernel_matrix(Xs, Ys, gamma) + sigma2_noise * torch.eye(Xs.shape[1])
+    K = rbf_kernel_matrix(Xs, Xs, gamma) + sigma2_noise * torch.eye(Xs.shape[1])
     K_inv = torch.inverse(K)
 
     def prediction_mean_and_variance(Xtest):
@@ -96,15 +103,23 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
         # construct mean and variance
         K_star = rbf_kernel_matrix(Xs, Xtest, gamma=gamma)
         mean = K_star.T @ (K_inv @ Ys)
-        variance = rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)+sigma2_noise - K_star.T @ (K_inv @ K_star)
-        return (mean.reshape(()), variance.reshape(())) # be sure to return scalars!
-    #finally, return the nested function
+        variance = (
+            rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)
+            + sigma2_noise
+            - K_star.T @ (K_inv @ K_star)
+        )
+        return (mean.reshape(()), variance.reshape(()))  # be sure to return scalars!
+
+    # finally, return the nested function
     return prediction_mean_and_variance
 
-'''
+
+"""
 This seems to want to return a function, but use cases suggest 
 the function itself is what is to be used...
-'''
+"""
+
+
 # compute the probability of improvement (PI) acquisition function
 #
 # Ybest     value at best "y"
@@ -114,7 +129,7 @@ the function itself is what is to be used...
 # returns   PI acquisition function
 def pi_acquisition(Ybest, mean, stdev):
     # TODO students should implement this
-    
+
     return -gaussian_cdf(Ybest - mean) / stdev
 
 
@@ -133,7 +148,6 @@ def ei_acquisition(Ybest, mean, stdev):
     return -stdev * (pdf_term + argument * cdf_term)
 
 
-
 # return a function that computes the lower confidence bound (LCB) acquisition function
 #
 # kappa     parameter for LCB
@@ -141,8 +155,9 @@ def ei_acquisition(Ybest, mean, stdev):
 # returns   function that computes the LCB acquisition function
 def lcb_acquisition(kappa):
     def A_lcb(Ybest, mean, stdev):
-        return mean - kappa*stdev
+        return mean - kappa * stdev
         # TODO students should implement this
+
     return A_lcb
 
 
@@ -158,7 +173,7 @@ def lcb_acquisition(kappa):
 #       x_min       the value of x after running iterations of gradient descent
 def gradient_descent(objective, x0, alpha, num_iters):
     x = x0.detach().clone()  # create a fresh copy of x0
-    x.requires_grad = True   # make it a target for differentiation
+    x.requires_grad = True  # make it a target for differentiation
     opt = torch.optim.SGD([x], alpha)
     for it in range(num_iters):
         opt.zero_grad()
@@ -167,6 +182,7 @@ def gradient_descent(objective, x0, alpha, num_iters):
         opt.step()
     x.requires_grad = False  # make x no longer require gradients
     return (float(f.item()), x)
+
 
 # run Bayesian optimization to minimize an objective
 #
@@ -187,38 +203,54 @@ def gradient_descent(objective, x0, alpha, num_iters):
 #   x_best          best point found
 #   Ys              vector of objective values for all points searched (size: num_iters)
 #   Xs              matrix of all points searched (size: d x num_iters)
-def bayes_opt(objective, d, gamma, sigma2_noise, acquisition, random_x, gd_nruns, gd_alpha, gd_niters, n_warmup, num_iters):
+def bayes_opt(
+    objective,
+    d,
+    gamma,
+    sigma2_noise,
+    acquisition,
+    random_x,
+    gd_nruns,
+    gd_alpha,
+    gd_niters,
+    n_warmup,
+    num_iters,
+):
     # TODO students should implement this
-    y_best = float('inf')
+    y_best = float("inf")
     x_best = None
-    xis = torch.tensor() #dxn
-    yis = torch.tensor() # n
+    xis = torch.zeros((d, n_warmup))  # dxn
+    yis = torch.zeros(n_warmup)  # n
     # warmup
-    for i in range(1, n_warmup+1):
+    for i in range(n_warmup):
         xi = random_x()
         yi = objective(xi)
-        xis = torch.cat(xis, xi, dim = 1)
-        yis = torch.cat(yis, yi, dim = 0)
+        xis[:, i] = xi
+        yis[i] = yi
 
         if yi <= y_best:
             y_best = yi
             x_best = xi
-    for i in range(n_warmup+1, num_iters+1):
-        mu_var_func = gp_prediction(xis, yis, gamma = gamma, sigma2_noise=sigma2_noise)
+    for i in range(n_warmup, num_iters):
+        mu_var_func = gp_prediction(xis, yis, gamma=gamma, sigma2_noise=sigma2_noise)
+
         def acquisition_objective(x_test):
             mu, var = mu_var_func(x_test)
             stdev = torch.sqrt(var)
             return acquisition(y_best, mu, stdev)
-        yi_est = float('inf')
+
+        yi_est = float("inf")
         xi = None
         for i in range(gd_nruns):
-            x_poss, y_poss = gradient_descent(acquisition_objective, random_x(), alpha=gd_alpha, num_iters=gd_niters)
+            x_poss, y_poss = gradient_descent(
+                acquisition_objective, random_x(), alpha=gd_alpha, num_iters=gd_niters
+            )
             if y_poss <= yi_est:
                 xi = x_poss
                 yi_est = y_poss
         yi = objective(xi)
-        xis = torch.cat(xis, xi, dim = 1)
-        yis = torch.cat(yis, yi, dim = 0)
+        xis = torch.cat(xis, xi, dim=1)
+        yis = torch.cat(yis, yi, dim=0)
 
         if yi <= y_best:
             y_best = yi
@@ -230,9 +262,8 @@ def bayes_opt(objective, d, gamma, sigma2_noise, acquisition, random_x, gd_nruns
 def test_objective(x):
     assert isinstance(x, torch.Tensor)
     assert x.shape == (1,)
-    x = x.item() # convert to a python float
-    return (math.cos(8.0*x) - 0.3 + (x-0.5)**2)
-
+    x = x.item()  # convert to a python float
+    return math.cos(8.0 * x) - 0.3 + (x - 0.5) ** 2
 
 
 # compute the gradient of the multinomial logistic regression objective, with regularization (SIMILAR TO PROGRAMMING ASSIGNMENT 2)
@@ -247,7 +278,14 @@ def test_objective(x):
 def multinomial_logreg_batch_grad(Xs, Ys, ii, gamma, W):
     # here is the code from my solution
     # you can also use your implementation from programming assignment 2
-    return numpy.dot(scipy.special.softmax(numpy.dot(W, Xs[:,ii]), axis=0) - Ys[:,ii], Xs[:,ii].transpose()) / len(ii) + gamma * W
+    return (
+        numpy.dot(
+            scipy.special.softmax(numpy.dot(W, Xs[:, ii]), axis=0) - Ys[:, ii],
+            Xs[:, ii].transpose(),
+        )
+        / len(ii)
+        + gamma * W
+    )
 
 
 # compute the error of the classifier (SAME AS PROGRAMMING ASSIGNMENT 3)
@@ -277,7 +315,9 @@ def multinomial_logreg_loss(Xs, Ys, gamma, W):
     # here is the code from my solution
     # you can also use your implementation from programming assignment 3
     (d, n) = Xs.shape
-    return -numpy.sum(numpy.log(scipy.special.softmax(numpy.dot(W, Xs), axis=0)) * Ys) / n + (gamma / 2) * (numpy.linalg.norm(W, "fro")**2)
+    return -numpy.sum(
+        numpy.log(scipy.special.softmax(numpy.dot(W, Xs), axis=0)) * Ys
+    ) / n + (gamma / 2) * (numpy.linalg.norm(W, "fro") ** 2)
 
 
 # SGD + Momentum: add momentum to the previous algorithm
@@ -301,9 +341,9 @@ def sgd_mss_with_momentum(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
     niter = 0
     print("Running minibatch sequential-scan SGD with momentum")
     for it in tqdm(range(num_epochs)):
-        for ibatch in range(int(n/B)):
+        for ibatch in range(int(n / B)):
             niter += 1
-            ii = range(ibatch*B, (ibatch+1)*B)
+            ii = range(ibatch * B, (ibatch + 1) * B)
             V = beta * V - alpha * multinomial_logreg_batch_grad(Xs, Ys, ii, gamma, W)
             W = W + V
     return W
@@ -324,6 +364,7 @@ def sgd_mss_with_momentum(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
 #                       if training diverged (i.e. any of the weights are non-finite) then return 0.1, which corresponds to an error of 1.
 def mnist_sgd_mss_with_momentum(mnist_dataset, num_epochs, B):
     # TODO students should implement this
+    pass
 
 
 # produce an animation of the predictions made by the Gaussian process in the course of 1-d Bayesian optimization
@@ -343,8 +384,8 @@ def animate_predictions(objective, acq, gamma, sigma2_noise, Ys, Xs, xs_eval, fi
     acq_Xnext = []
     for it in range(len(Ys)):
         print("rendering frame %i" % it)
-        Xsi = Xs[:, 0:(it+1)]
-        Ysi = Ys[0:(it+1)]
+        Xsi = Xs[:, 0 : (it + 1)]
+        Ysi = Ys[0 : (it + 1)]
         ybest = Ysi.min()
         gp_pred = gp_prediction(Xsi, Ysi, gamma, sigma2_noise)
         pred_means = []
@@ -360,7 +401,7 @@ def animate_predictions(objective, acq, gamma, sigma2_noise, Ys, Xs, xs_eval, fi
         variance_eval.append(torch.Tensor(pred_variances))
         acq_eval.append(torch.Tensor(pred_acqs))
         if it + 1 != len(Ys):
-            XE = Xs[0,it+1].reshape(1)
+            XE = Xs[0, it + 1].reshape(1)
             (pred_mean, pred_variance) = gp_pred(XE)
             acq_Xnext.append(float(acq(ybest, pred_mean, math.sqrt(pred_variance))))
 
@@ -375,36 +416,64 @@ def animate_predictions(objective, acq, gamma, sigma2_noise, Ys, Xs, xs_eval, fi
         ax.set_xlabel("parameter")
         ax.set_ylabel("objective")
         ax2.set_ylabel("acquisiton fxn")
-        ax.set_title("Bayes Opt After %d Steps" % (i+1))
-        l1 = ax.fill_between(xs_eval, mean_eval[i] + 2.0*torch.sqrt(variance_eval[i]), mean_eval[i] - 2.0*torch.sqrt(variance_eval[i]), color="#eaf1f7")
-        l2, = ax.plot(xs_eval, [objective(x.reshape(1)) for x in xs_eval])
-        l3, = ax.plot(xs_eval, mean_eval[i], color="r")
-        l4 = ax.scatter(Xs[0,0:(i+1)], Ys[0:(i+1)])
-        l5, = ax2.plot(xs_eval, acq_eval[i], color="g", ls=":")
+        ax.set_title("Bayes Opt After %d Steps" % (i + 1))
+        l1 = ax.fill_between(
+            xs_eval,
+            mean_eval[i] + 2.0 * torch.sqrt(variance_eval[i]),
+            mean_eval[i] - 2.0 * torch.sqrt(variance_eval[i]),
+            color="#eaf1f7",
+        )
+        (l2,) = ax.plot(xs_eval, [objective(x.reshape(1)) for x in xs_eval])
+        (l3,) = ax.plot(xs_eval, mean_eval[i], color="r")
+        l4 = ax.scatter(Xs[0, 0 : (i + 1)], Ys[0 : (i + 1)])
+        (l5,) = ax2.plot(xs_eval, acq_eval[i], color="g", ls=":")
         ax.legend([l2, l3, l5], ["objective", "mean", "acquisition"], loc="upper right")
         if i + 1 == len(Ys):
             return l1, l2, l3, l4, l5
         else:
-            l6 = ax2.scatter([Xs[0,i+1]], [acq_Xnext[i]], color="g")
+            l6 = ax2.scatter([Xs[0, i + 1]], [acq_Xnext[i]], color="g")
             return l1, l2, l3, l4, l5, l6
 
-
-    ani = animation.FuncAnimation(fig, animate, frames=range(len(Ys)), interval=600, repeat_delay=1000)
+    ani = animation.FuncAnimation(
+        fig, animate, frames=range(len(Ys)), interval=600, repeat_delay=1000
+    )
 
     ani.save(filename)
+
 
 if __name__ == "__main__":
     # TODO students should implement plotting functions here
     def test_random_x():
         return 1.5 * torch.rand(1) - 0.25
-    
-    (y_best, x_best, Ys, Xs) = bayes_opt(test_objective, 1, 10.0, 0.001, ei_acquisition, test_random_x, 20, 0.01, 20, 3, 20)
-    
+
+    (y_best, x_best, Ys, Xs) = bayes_opt(
+        test_objective,
+        1,
+        10.0,
+        0.001,
+        ei_acquisition,
+        test_random_x,
+        20,
+        0.01,
+        20,
+        3,
+        20,
+    )
+
     print(y_best)
     print(x_best)
     print(Ys)
     print(Xs)
-    
+
     Xs_plot = torch.linspace(-0.5, 1.5, steps=256)
-    
-    animate_predictions(test_objective, ei_acquisition, 10.0, 0.001, Ys, Xs, Xs_plot, "solution_figures/bayes_opt_ei.mp4")
+
+    animate_predictions(
+        test_objective,
+        ei_acquisition,
+        10.0,
+        0.001,
+        Ys,
+        Xs,
+        Xs_plot,
+        "solution_figures/bayes_opt_ei.mp4",
+    )
