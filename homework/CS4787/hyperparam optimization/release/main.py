@@ -223,7 +223,7 @@ def bayes_opt(
     # warmup
     for i in range(n_warmup):
         xi = random_x()
-        yi = objective(xi)
+        yi = float(objective(xi))
         xis[:, i] = xi
         yis[i] = yi
 
@@ -247,7 +247,7 @@ def bayes_opt(
             if y_poss <= yi_est:
                 xi = x_poss
                 yi_est = y_poss
-        yi = objective(xi)
+        yi = float(objective(xi))
         xis = torch.cat((xis, torch.unsqueeze(xi, 0)), dim=1)
         yis = torch.cat((yis, torch.tensor([yi])), dim=0)
 
