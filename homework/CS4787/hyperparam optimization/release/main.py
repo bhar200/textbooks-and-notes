@@ -101,7 +101,7 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance
-        Xtest_unsqueezed = torch.unsqueeze(Xtest, 0)
+        Xtest_unsqueezed = torch.unsqueeze(Xtest, 1)
         K_star = rbf_kernel_matrix(Xs, Xtest_unsqueezed, gamma=gamma)
         mean = K_star.T @ (K_inv @ Ys)
         variance = (
@@ -250,7 +250,7 @@ def bayes_opt(
                 xi = x_poss
                 yi_est = y_poss
         yi = float(objective(xi))
-        xis = torch.cat((xis, torch.unsqueeze(xi, 0)), dim=1)
+        xis = torch.cat((xis, torch.unsqueeze(xi, 1)), dim=1)
         yis = torch.cat((yis, torch.tensor([yi])), dim=0)
 
         if yi <= y_best:
@@ -368,25 +368,19 @@ def mnist_sgd_mss_with_momentum(mnist_dataset, num_epochs, B):
     Xs_tr, Ys_tr, Xs_va, Ys_va, Xs_te, Ys_te = mnist_dataset
     (d, n) = Xs_tr.shape
     (c, n) = Ys_tr.shape
-    W0 = torch.zeros_like((c, d))
+    W0 = numpy.zeros((c, d))
 
     def final_validation_error(params):
-        gamma = 10 ** (-8 * params[0])
-        alpha = 0.5 * params[1]
-        beta = params[2]
+        gamma = float(10 ** (-8 * params[0]))
+        alpha = float(0.5 * params[1])
+        beta = float(params[2])
         model = sgd_mss_with_momentum(
             Xs_tr, Ys_tr, gamma, W0, alpha, beta, B, num_epochs
         )
-        model.eval()
-        val_error = total_val_samples = 0
-        outputs = model(Xs_va)
-        _, predicted = torch.max(outputs, 1)
-        val_error += (predicted != Ys_va).sum().item()
-        total_val_samples += Ys_va.size(0)
-        validation_error = val_error / total_val_samples
-        for param in model.parameters():
-            if torch.isnan(param.grad).any() or torch.isinf(param.grad).any():
-                return 0.1
+        validation_error = multinomial_logreg_error(Xs_va, Ys_va, model)
+
+        if numpy.any(~numpy.isfinite(model)):
+            return 0.1
         return validation_error - 0.9
 
     return final_validation_error
@@ -471,59 +465,54 @@ if __name__ == "__main__":
     def test_random_x():
         return 1.5 * torch.rand(1) - 0.25
 
-    # (y_best, x_best, Ys, Xs) = bayes_opt(
-    #     test_objective,
-    #     1,
-    #     10.0,
-    #     0.001,
-    #     ei_acquisition,
-    #     test_random_x,
-    #     20,
-    #     0.01,
-    #     20,
-    #     3,
-    #     20,
-    # )
     Xs_plot = torch.linspace(-0.5, 1.5, steps=256)
+    CASE = ["cosine", "mnist"]
 
-    # animate_predictions(
-    #     test_objective,
-    #     ei_acquisition,
-    #     10.0,
-    #     0.001,
-    #     Ys,
-    #     Xs,
-    #     Xs_plot,
-    #     "solution_figures/bayes_opt_ei.mp4",
-    # )
+    match CASE[1]:
+        case "cosine":
+            (y_best, x_best, Ys, Xs) = bayes_opt(
+                test_objective,
+                1,
+                10.0,
+                0.001,
+                ei_acquisition,
+                test_random_x,
+                20,
+                0.01,
+                20,
+                3,
+                20,
+            )
+            animate_predictions(
+                test_objective,
+                ei_acquisition,
+                10.0,
+                0.001,
+                Ys,
+                Xs,
+                Xs_plot,
+                "solution_figures/bayes_opt_ei.mp4",
+            )
 
-    dataset = load_MNIST_dataset_with_validation_split()
-    mnist_objective = mnist_sgd_mss_with_momentum(dataset, 5, 500)
+        case "mnist":
+            dataset = load_MNIST_dataset_with_validation_split()
+            mnist_objective = mnist_sgd_mss_with_momentum(dataset, 5, 500)
 
-    (y_best, x_best, Ys, Xs) = bayes_opt(
-        mnist_objective,
-        3,
-        10.0,
-        0.001,
-        lcb_acquisition(2.0),
-        torch.rand(3),
-        20,
-        0.01,
-        20,
-        3,
-        20,
-    )
+            (y_best, x_best, Ys, Xs) = bayes_opt(
+                mnist_objective,
+                3,
+                10.0,
+                0.001,
+                lcb_acquisition(2.0),
+                lambda: torch.rand(3),
+                20,
+                0.01,
+                20,
+                3,
+                20,
+            )
+
     print(y_best)
     print(x_best)
     print(Ys)
     print(Xs)
-    animate_predictions(
-        mnist_objective,
-        lcb_acquisition(2.0),
-        10.0,
-        0.001,
-        Ys,
-        Xs,
-        Xs_plot,
-        "solution_figures/bayes_opt_ei.mp4",
-    )
