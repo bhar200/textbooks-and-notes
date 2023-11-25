@@ -220,7 +220,7 @@ def bayes_opt(
     # TODO students should implement this
     y_best = float("inf")
     x_best = None
-    xis = torch.zeros((d, n_warmup))  # dxn
+    xis = torch.zeros(d, n_warmup)  # dxn
     yis = torch.zeros(n_warmup)  # n
     # warmup
     for i in range(n_warmup):
@@ -258,6 +258,7 @@ def bayes_opt(
             x_best = xi
     if not isinstance(y_best, float):
         y_best = float(y_best)
+    print(y_best)
 
     return y_best, x_best, yis, xis
 
