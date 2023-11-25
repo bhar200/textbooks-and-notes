@@ -395,16 +395,16 @@ def animate_predictions(objective, acq, gamma, sigma2_noise, Ys, Xs, xs_eval, fi
 
 if __name__ == "__main__":
     # TODO students should implement plotting functions here
-    # def test_random_x():
-    #     return 1.5 * torch.rand(1) - 0.25
-    #
-    # (y_best, x_best, Ys, Xs) = bayes_opt(test_objective, 1, 10.0, 0.001, ei_acquisition, test_random_x, 20, 0.01, 20, 3, 20)
-    #
-    # print(y_best)
-    # print(x_best)
-    # print(Ys)
-    # print(Xs)
-    #
-    # Xs_plot = torch.linspace(-0.5, 1.5, steps=256)
-    #
-    # animate_predictions(test_objective, ei_acquisition, 10.0, 0.001, Ys, Xs, Xs_plot, "solution_figures/bayes_opt_ei.mp4")
+    def test_random_x():
+        return 1.5 * torch.rand(1) - 0.25
+    
+    (y_best, x_best, Ys, Xs) = bayes_opt(test_objective, 1, 10.0, 0.001, ei_acquisition, test_random_x, 20, 0.01, 20, 3, 20)
+    
+    print(y_best)
+    print(x_best)
+    print(Ys)
+    print(Xs)
+    
+    Xs_plot = torch.linspace(-0.5, 1.5, steps=256)
+    
+    animate_predictions(test_objective, ei_acquisition, 10.0, 0.001, Ys, Xs, Xs_plot, "solution_figures/bayes_opt_ei.mp4")
