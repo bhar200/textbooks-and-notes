@@ -241,15 +241,15 @@ def bayes_opt(
         yi_est = float("inf")
         xi = None
         for i in range(gd_nruns):
-            x_poss, y_poss = gradient_descent(
+            y_poss, x_poss = gradient_descent(
                 acquisition_objective, random_x(), alpha=gd_alpha, num_iters=gd_niters
             )
             if y_poss <= yi_est:
                 xi = x_poss
                 yi_est = y_poss
         yi = objective(xi)
-        xis = torch.cat(xis, xi, dim=1)
-        yis = torch.cat(yis, yi, dim=0)
+        xis = torch.cat((xis, torch.unsqueeze(xi, 0)), dim=1)
+        yis = torch.cat((yis, torch.tensor([yi])), dim=0)
 
         if yi <= y_best:
             y_best = yi
