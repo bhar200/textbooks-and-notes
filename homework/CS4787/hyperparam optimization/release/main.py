@@ -468,7 +468,7 @@ if __name__ == "__main__":
     Xs_plot = torch.linspace(-0.5, 1.5, steps=256)
     CASE = ["cosine", "mnist"]
 
-    match CASE[1]:
+    match CASE[0]:  # 0 for cosine, 1 for mnist
         case "cosine":
             (y_best, x_best, Ys, Xs) = bayes_opt(
                 test_objective,
