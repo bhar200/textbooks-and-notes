@@ -76,9 +76,7 @@ def gaussian_pmf(u):
 def rbf_kernel_matrix(Xs, Zs, gamma):
     # if complaining about types, cast Cs and ys to floats. Xs.to(float)
     # also consider changing dimension from dummy dimension fi result incorrect
-    print(Xs.shape)
-    print(Zs.shape)
-    norms = torch.cdist(Xs, Zs, p=2)
+    norms = torch.cdist(Xs.T, Zs.T, p=2)
     return torch.exp(-gamma * (norms * norms))
     # TODO students should implement this
 
@@ -101,10 +99,11 @@ def gp_prediction(Xs, Ys, gamma, sigma2_noise):
     def prediction_mean_and_variance(Xtest):
         # TODO students should implement this
         # construct mean and variance
-        K_star = rbf_kernel_matrix(Xs, Xtest, gamma=gamma)
+        Xtest_unsqueezed = torch.unsqueeze(Xtest, 0)
+        K_star = rbf_kernel_matrix(Xs, Xtest_unsqueezed, gamma=gamma)
         mean = K_star.T @ (K_inv @ Ys)
         variance = (
-            rbf_kernel_matrix(Xtest, Xtest, gamma=gamma)
+            rbf_kernel_matrix(Xtest_unsqueezed, Xtest_unsqueezed, gamma=gamma)
             + sigma2_noise
             - K_star.T @ (K_inv @ K_star)
         )
