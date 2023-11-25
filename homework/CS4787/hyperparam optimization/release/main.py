@@ -12,8 +12,10 @@ matplotlib.use("agg")
 from matplotlib import pyplot
 from matplotlib import animation
 import torch
+from torch import optim
 
 ## you may wish to import other things like torch.nn
+from torch import nn
 
 mnist_data_directory = os.path.join(os.path.dirname(__file__), "data")
 
@@ -359,11 +361,48 @@ def sgd_mss_with_momentum(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
 #       gamma = 10^(-8 * params[0])
 #       alpha = 0.5*params[1]
 #       beta = params[2]
-#                       and returns (the validation error of the final trained model after all the epochs) minus 0.9.
-#                       if training diverged (i.e. any of the weights are non-finite) then return 0.1, which corresponds to an error of 1.
+#   and returns (the validation error of the final trained model after all the epochs) minus 0.9.
+#   if training diverged (i.e. any of the weights are non-finite) then return 0.1, which corresponds to an error of 1.
 def mnist_sgd_mss_with_momentum(mnist_dataset, num_epochs, B):
     # TODO students should implement this
-    pass
+    Xs_tr, Ys_tr, Xs_va, Ys_va, Xs_te, Ys_te = mnist_dataset
+
+    def final_validation_error(params):
+        model = nn.Sequential(
+            nn.Flatten(), nn.Linear(28 * 28, 10), nn.LogSoftmax(dim=1)
+        )
+        for param in model.parameters():
+            nn.init.zeros_(param)
+
+        gamma = 10 ** (-8 * params[0])
+        alpha = 0.5 * params[1]
+        beta = params[2]
+        optimizer = optim.SGD(model.parameters(), lr=gamma, momentum=beta)
+        crit = nn.NLLLoss()
+        for epoch in range(num_epochs):
+            model.train()
+            for i in range(0, len(Xs_tr), B):
+                inputs = Xs_tr[i : i + B]
+                labels = Ys_tr[i : i + B]
+
+                optimizer.zero_grad()
+                outputs = model(inputs)
+                loss = crit(outputs, labels)
+                loss.backward()
+                optimizer.step()
+        model.eval()
+        val_error = total_val_samples = 0
+        outputs = model(Xs_va)
+        _, predicted = torch.max(outputs, 1)
+        val_error += (predicted != Ys_va).sum().item()
+        total_val_samples += Ys_va.size(0)
+        validation_error = val_error / total_val_samples
+        for param in model.parameters():
+            if torch.isnan(param.grad).any() or torch.isinf(param.grad).any():
+                return 0.1
+        return validation_error - 0.9
+
+    return final_validation_error
 
 
 # produce an animation of the predictions made by the Gaussian process in the course of 1-d Bayesian optimization
