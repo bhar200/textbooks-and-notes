@@ -256,7 +256,7 @@ def bayes_opt(
         if yi <= y_best:
             y_best = yi
             x_best = xi
-    return y_best, x_best, yis, xis
+    return float(y_best), x_best, yis, xis
 
 
 # a one-dimensional test objective function on which to run Bayesian optimization
