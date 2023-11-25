@@ -366,30 +366,14 @@ def sgd_mss_with_momentum(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
 def mnist_sgd_mss_with_momentum(mnist_dataset, num_epochs, B):
     # TODO students should implement this
     Xs_tr, Ys_tr, Xs_va, Ys_va, Xs_te, Ys_te = mnist_dataset
-
+    (d, n) = Xs_tr.shape
+    (c, n) = Ys_tr.shape
+    W0 = torch.zeros_like((c,d))
     def final_validation_error(params):
-        model = nn.Sequential(
-            nn.Flatten(), nn.Linear(28 * 28, 10), nn.LogSoftmax(dim=1)
-        )
-        for param in model.parameters():
-            nn.init.zeros_(param)
-
         gamma = 10 ** (-8 * params[0])
         alpha = 0.5 * params[1]
         beta = params[2]
-        optimizer = optim.SGD(model.parameters(), lr=gamma, momentum=beta)
-        crit = nn.NLLLoss()
-        for epoch in range(num_epochs):
-            model.train()
-            for i in range(0, len(Xs_tr), B):
-                inputs = Xs_tr[i : i + B]
-                labels = Ys_tr[i : i + B]
-
-                optimizer.zero_grad()
-                outputs = model(inputs)
-                loss = crit(outputs, labels)
-                loss.backward()
-                optimizer.step()
+        model = sgd_mss_with_momentum(Xs_tr, Ys_tr, gamma, W0, alpha, beta, B, num_epochs)
         model.eval()
         val_error = total_val_samples = 0
         outputs = model(Xs_va)
@@ -401,7 +385,6 @@ def mnist_sgd_mss_with_momentum(mnist_dataset, num_epochs, B):
             if torch.isnan(param.grad).any() or torch.isinf(param.grad).any():
                 return 0.1
         return validation_error - 0.9
-
     return final_validation_error
 
 
@@ -484,8 +467,22 @@ if __name__ == "__main__":
     def test_random_x():
         return 1.5 * torch.rand(1) - 0.25
 
+    # (y_best, x_best, Ys, Xs) = bayes_opt(
+    #     test_objective,
+    #     1,
+    #     10.0,
+    #     0.001,
+    #     ei_acquisition,
+    #     test_random_x,
+    #     20,
+    #     0.01,
+    #     20,
+    #     3,
+    #     20,
+    # )
+
     (y_best, x_best, Ys, Xs) = bayes_opt(
-        test_objective,
+        ,
         1,
         10.0,
         0.001,
@@ -497,7 +494,6 @@ if __name__ == "__main__":
         3,
         20,
     )
-
     print(y_best)
     print(x_best)
     print(Ys)
@@ -513,5 +509,5 @@ if __name__ == "__main__":
         Ys,
         Xs,
         Xs_plot,
-        "solution_figures/bayes_opt_ei.mp4",
+        "solution_figures/bayes_opt_ei_mnist.mp4",
     )
