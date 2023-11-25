@@ -258,7 +258,6 @@ def bayes_opt(
             x_best = xi
     if not isinstance(y_best, float):
         y_best = float(y_best)
-    print(y_best)
 
     return y_best, x_best, yis, xis
 
