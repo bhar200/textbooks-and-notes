@@ -13,13 +13,36 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homework/AEP 3300/PSET 12.md",
+                "file": "homework/AEP 3300/PSET 12 q1.md",
                 "mode": "source",
                 "source": false
               }
             }
+          },
+          {
+            "id": "241d749e1f436c78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "homework/AEP 3300/PSET 12 q2-q5.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "c5aff1768e5a6964",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "homework/CS4787/hyperparam optimization/pset4.pdf"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -71,7 +94,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 12.md"
+                "file": "homework/AEP 3300/PSET 12 q2-q5.md"
               }
             }
           }
@@ -79,7 +102,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "6b94c27ac434ed89",
@@ -95,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/AEP 3300/PSET 12.md",
+                "file": "homework/AEP 3300/PSET 12 q2-q5.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +136,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/AEP 3300/PSET 12.md",
+                "file": "homework/AEP 3300/PSET 12 q2-q5.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 12.md"
+                "file": "homework/AEP 3300/PSET 12 q2-q5.md"
               }
             }
           }
@@ -156,8 +180,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1257d7845f8aa8ac",
+  "active": "241d749e1f436c78",
   "lastOpenFiles": [
+    "homework/AEP 3300/problem set 12.pdf",
+    "homework/AEP 3300/PSET 12 q2-q5.md",
+    "homework/AEP 3300/PSET 12 q2-q5.pdf",
+    "homework/CS4787/hyperparam optimization/pset4.pdf",
+    "homework/AEP 3300/PSET 12 q1.md",
+    "homework/AEP 3300/PSET 12.pdf",
     "homework/AEP 3300/problemset_11.pdf",
     "homework/AEP 3300/PSET 11.md",
     "homework/CS4787/hyperparam optimization/release/data/train-labels-idx1-ubyte.gz",
@@ -165,13 +195,7 @@
     "homework/CS4787/hyperparam optimization/release/data/t10k-labels-idx1-ubyte.gz",
     "homework/CS4787/hyperparam optimization/release/data/t10k-images-idx3-ubyte.gz",
     "homework/CS4787/hyperparam optimization/release/requirements.txt",
-    "homework/CS4787/hyperparam optimization/release/main.py",
-    "homework/CS4787/hyperparam optimization/release/data",
-    "homework/CS4787/hyperparam optimization/release/README.txt",
-    "homework/CS4787/hyperparam optimization/release",
-    "homework/CS4787/hyperparam optimization/pset4.pdf",
     "PSET 12.md",
-    "homework/AEP 3300/PSET 12.md",
     "homework/AEP 4200/PSET 8.md",
     "homework/AEP 4200/PSET 5.md",
     "homework/AEP 3300/PSET 10.md",
@@ -203,7 +227,6 @@
     "notes/quantum/Math Remarks for Quantum States.md",
     "notes/quantum/Quantum Harmonic Oscillator.md",
     "To Do.md",
-    "shakespeare/Two Gentlemen of Verona.md",
-    "2023-09-20.md"
+    "shakespeare/Two Gentlemen of Verona.md"
   ]
 }
