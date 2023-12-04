@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Conduct and Decorum.md",
+                "file": "homework/CS4787/parallel computing/Data.md",
                 "mode": "source",
                 "source": false
               }
@@ -71,7 +71,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Conduct and Decorum.md"
+                "file": "homework/CS4787/parallel computing/Data.md"
               }
             }
           }
@@ -95,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Conduct and Decorum.md",
+                "file": "homework/CS4787/parallel computing/Data.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Conduct and Decorum.md",
+                "file": "homework/CS4787/parallel computing/Data.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,7 +135,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Conduct and Decorum.md"
+                "file": "homework/CS4787/parallel computing/Data.md"
               }
             }
           }
@@ -158,8 +158,11 @@
   },
   "active": "ca6c967eab5b12f6",
   "lastOpenFiles": [
-    "Programming.md",
+    "shakespeare/Pasted image 20231204000306.png",
+    "shakespeare/Pasted image 20231203235416.png",
     "Conduct and Decorum.md",
+    "homework/CS4787/parallel computing/Data.md",
+    "Programming.md",
     "homework/AEP 3300/PSET 12 q4-q5.md",
     "homework/CS4787/submission_152161163.pdf",
     "homework/CS4787/main.py",
@@ -201,9 +204,6 @@
     "shakespeare/Pasted image 20231006232233.png",
     "shakespeare/Pasted image 20231006232151.png",
     "shakespeare/Pasted image 20231006232138.png",
-    "shakespeare/Pasted image 20231006231826.png",
-    "notes/quantum/Math Remarks for Quantum States.md",
-    "notes/quantum/Quantum Harmonic Oscillator.md",
-    "To Do.md"
+    "notes/quantum/Math Remarks for Quantum States.md"
   ]
 }

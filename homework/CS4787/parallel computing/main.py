@@ -37,11 +37,19 @@ def multinomial_logreg_error(Xs, Ys, W):
 
 
 def multinomial_logreg_grad_i(Xs, Ys, ii, gamma, W):
-    WdotX = numpy.dot(W, Xs[:, ii])
+    if ii is None:
+        batch = Xs
+        batch_labels = Ys
+        ii = range(batch.shape[1])
+    else:
+        batch = Xs[:, ii]
+        batch_labels = Ys[:, ii]
+
+    WdotX = numpy.dot(W, batch)
     expWdotX = numpy.exp(WdotX - numpy.amax(WdotX, axis=0))
     softmaxWdotX = expWdotX / numpy.sum(expWdotX, axis=0)
     return (
-        numpy.dot(softmaxWdotX - Ys[:, ii], Xs[:, ii].transpose()) / len(ii) + gamma * W
+        numpy.dot(softmaxWdotX - batch_labels, batch.transpose()) / len(ii) + gamma * W
     )
 
 
@@ -384,3 +392,68 @@ def sgd_mss_with_momentum_threaded_float32(
 if __name__ == "__main__":
     (Xs_tr, Ys_tr, Xs_te, Ys_te) = load_MNIST_dataset()
     # TODO add code to produce figures
+    # graphing done on a separate jupyter notebook,
+    # since it's easier to preserve state there instead of recomputing every graph...
+    alpha = 0.1
+    beta = 0.9
+    B = 16
+    gamma = 0.0001
+    epochs = 20
+    d, n = Xs_tr.shape
+    c, n = Ys_tr.shape
+    W0 = numpy.zeros((c, d))
+
+    batch_sizes = [8, 16, 30, 60, 200, 600, 3000]
+    noalloc_time = []
+    alloc_time = []
+    # noalloc_time = []
+    # alloc_time_manual = []
+    for batch_size in batch_sizes:
+        print("batch_size: ", batch_size)
+        start_time = time.time()
+        model = sgd_mss_with_momentum(
+            Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs
+        )
+        end_time = time.time()
+        alloc_time.append(end_time - start_time)
+
+        start_time = time.time()
+        model = sgd_mss_with_momentum_noalloc(
+            Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs
+        )
+        end_time = time.time()
+        noalloc_time.append(end_time - start_time)
+
+        # manual threading
+        # start_time = time.time()
+        # model = sgd_mss_with_momentum_threaded(
+        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs, 6)
+        # end_time = time.time()
+        # alloc_time.append(end_time - start_time)
+
+        # start_time = time.time()
+        # model = sgd_mss_with_momentum_noalloc_float32(
+        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs)
+        # end_time = time.time()
+        # alloc_time.append(end_time - start_time)
+
+        # manual threading
+        # start_time = time.time()
+        # model = sgd_mss_with_momentum_threaded_float32(
+        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs, 6)
+        # end_time = time.time()
+        # alloc_time.append(end_time - start_time)
+
+    print("Alloc times: ", alloc_time)
+    pyplot.plot(
+        batch_sizes,
+        alloc_time,
+        "#527cca",
+        label="One Thread, With Memory Allocation, float64",
+    )
+    pyplot.plot(
+        batch_sizes,
+        noalloc_time,
+        "#1cbaaa",
+        label="One Thread, No Memory Allocation, float64",
+    )
