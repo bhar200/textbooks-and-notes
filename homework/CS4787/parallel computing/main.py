@@ -129,11 +129,11 @@ def sgd_mss_with_momentum_noalloc(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs)
     # TODO students should initialize the parameter vector W and pre-allocate any needed arrays here
     V = numpy.zeros(W0.shape)
     W = W0
-    presliced_examples = [
+    Xs_presliced = [
         numpy.ascontiguousarray(Xs[:, ibatch * B : (ibatch + 1) * B])
         for ibatch in range(int(n / B))
     ]
-    presliced_labels = [
+    Ys_presliced = [
         numpy.ascontiguousarray(Ys[:, ibatch * B : (ibatch + 1) * B])
         for ibatch in range(int(n / B))
     ]
@@ -145,8 +145,8 @@ def sgd_mss_with_momentum_noalloc(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs)
             numpy.multiply(
                 alpha,
                 multinomial_logreg_grad_i(
-                    presliced_examples[ibatch],
-                    presliced_labels[ibatch],
+                    Xs_presliced[ibatch],
+                    Ys_presliced[ibatch],
                     None,
                     gamma,
                     W,
@@ -180,7 +180,7 @@ def sgd_mss_with_momentum_threaded(
     V = numpy.zeros(W0.shape)
     W = W0
     accumulator = numpy.zeros((num_threads, c, d))
-    grad_sum = numpy.zeros((c, d))
+    grad = numpy.zeros((c, d))
     Bt = int(B / num_threads)
 
     # construct the barrier object
@@ -190,14 +190,14 @@ def sgd_mss_with_momentum_threaded(
     def thread_main(ithread):
         # TODO perform any per-thread allocations
 
-        presliced_examples = [
+        Xs_presliced = [
             numpy.ascontiguousarray(
                 Xs[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)]
             )
             for ibatch in range(int(n / B))
         ]
 
-        presliced_labels = [
+        Ys_presliced = [
             numpy.ascontiguousarray(
                 Ys[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)]
             )
@@ -210,7 +210,7 @@ def sgd_mss_with_momentum_threaded(
                 # ii = range(ibatch*B + ithread*Bt, ibatch*B + (ithread+1)*Bt)
                 iter_barrier.wait()
                 accumulator[ithread] = multinomial_logreg_grad_i(
-                    presliced_examples[ibatch], presliced_labels[ibatch], None, gamma, W
+                    Xs_presliced[ibatch], Ys_presliced[ibatch], None, gamma, W
                 )
                 iter_barrier.wait()
 
@@ -229,10 +229,10 @@ def sgd_mss_with_momentum_threaded(
         for ibatch in range(int(n / B)):
             iter_barrier.wait()
             # TODO work done on a single thread at each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
-            numpy.sum(accumulator, axis=0, out=grad_sum)
-            numpy.multiply(alpha / num_threads, grad_sum, out=grad_sum)
+            numpy.sum(accumulator, axis=0, out=grad)
+            numpy.multiply(alpha / num_threads, grad, out=grad)
             numpy.multiply(beta, V, out=V)
-            numpy.subtract(V, grad_sum, out=V)
+            numpy.subtract(V, grad, out=V)
             numpy.add(V, W, out=W)
             iter_barrier.wait()
 
@@ -265,6 +265,33 @@ def sgd_mss_with_momentum_noalloc_float32(
     (c, d) = W0.shape
     # TODO students should implement this by copying and adapting their 64-bit code
 
+    V = numpy.zeros(W0.shape)
+    W = W0
+    Xs_presliced = [
+        numpy.ascontiguousarray(Xs[:, ibatch * B : (ibatch + 1) * B])
+        for ibatch in range(int(n / B))
+    ]
+    Ys_presliced = [
+        numpy.ascontiguousarray(Ys[:, ibatch * B : (ibatch + 1) * B])
+        for ibatch in range(int(n / B))
+    ]
+    print("Running minibatch sequential-scan SGD with momentum (no allocation)")
+    for it in tqdm(range(num_epochs)):
+        for ibatch in range(int(n / B)):
+            # TODO this section of code should only use numpy operations with the "out=" argument specified (students should implement this)
+            numpy.multiply(beta, V, out=V, dtype=numpy.float32)
+            numpy.multiply(
+                alpha,
+                multinomial_logreg_grad_i(
+                    Xs_presliced[ibatch], Ys_presliced[ibatch], None, gamma, W
+                ),
+                out=V,
+                dtype=numpy.float32,
+            )
+            numpy.add(V, W, out=W, dtype=numpy.float32)
+
+    return W
+
 
 # SGD + Momentum (threaded, float32)
 #
@@ -286,6 +313,72 @@ def sgd_mss_with_momentum_threaded_float32(
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO students should implement this by copying and adapting their 64-bit code
+    V = numpy.zeros(W0.shape, dtype=numpy.float32)
+    W = W0
+    accumulator = numpy.zeros((num_threads, c, d), dtype=numpy.float32)
+    grad = numpy.zeros((c, d))
+    Bt = int(B / num_threads)
+
+    # construct the barrier object
+    iter_barrier = threading.Barrier(num_threads + 1)
+
+    # a function for each thread to run
+    def thread_main(ithread):
+        # TODO perform any per-thread allocations
+
+        Xs_presliced = [
+            numpy.ascontiguousarray(
+                Xs[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)],
+                dtype=numpy.float32,
+            )
+            for ibatch in range(int(n / B))
+        ]
+
+        Ys_presliced = [
+            numpy.ascontiguousarray(
+                Ys[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)],
+                dtype=numpy.float32,
+            )
+            for ibatch in range(int(n / B))
+        ]
+
+        for it in range(num_epochs):
+            for ibatch in range(int(n / B)):
+                # TODO work done by thread in each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
+                # ii = range(ibatch*B + ithread*Bt, ibatch*B + (ithread+1)*Bt)
+                iter_barrier.wait()
+                accumulator[ithread] = multinomial_logreg_grad_i(
+                    Xs_presliced[ibatch], Ys_presliced[ibatch], None, gamma, W
+                )
+                iter_barrier.wait()
+
+    worker_threads = [
+        threading.Thread(target=thread_main, args=(it,)) for it in range(num_threads)
+    ]
+
+    for t in worker_threads:
+        print("running thread ", t)
+        t.start()
+
+    print(
+        "Running minibatch sequential-scan SGD with momentum (%d threads)" % num_threads
+    )
+    for it in tqdm(range(num_epochs)):
+        for ibatch in range(int(n / B)):
+            iter_barrier.wait()
+            # TODO work done on a single thread at each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
+            numpy.sum(accumulator, axis=0, out=grad, dtype=numpy.float32)
+            numpy.multiply(alpha / num_threads, grad, out=grad, dtype=numpy.float32)
+            numpy.multiply(beta, V, out=V, dtype=numpy.float32)
+            numpy.subtract(V, grad, out=V, dtype=numpy.float32)
+            numpy.add(V, W, out=W, dtype=numpy.float32)
+            iter_barrier.wait()
+
+    for t in worker_threads:
+        t.join()
+
+    # return the learned model
+    return W
 
 
 if __name__ == "__main__":
