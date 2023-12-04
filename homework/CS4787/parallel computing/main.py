@@ -2,7 +2,7 @@
 import os
 
 # BEGIN THREAD SETTINGS this sets the number of threads used by numpy in the program (should be set to 1 for Parts 1 and 3)
-implicit_num_threads = 1
+implicit_num_threads = 4
 
 os.environ["OMP_NUM_THREADS"] = str(implicit_num_threads)
 os.environ["MKL_NUM_THREADS"] = str(implicit_num_threads)
@@ -394,66 +394,138 @@ if __name__ == "__main__":
     # TODO add code to produce figures
     # graphing done on a separate jupyter notebook,
     # since it's easier to preserve state there instead of recomputing every graph...
-    alpha = 0.1
-    beta = 0.9
-    B = 16
-    gamma = 0.0001
-    epochs = 20
-    d, n = Xs_tr.shape
-    c, n = Ys_tr.shape
-    W0 = numpy.zeros((c, d))
-
     batch_sizes = [8, 16, 30, 60, 200, 600, 3000]
-    noalloc_time = []
-    alloc_time = []
-    # noalloc_time = []
-    # alloc_time_manual = []
-    for batch_size in batch_sizes:
-        print("batch_size: ", batch_size)
-        start_time = time.time()
-        model = sgd_mss_with_momentum(
-            Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs
-        )
-        end_time = time.time()
-        alloc_time.append(end_time - start_time)
 
-        start_time = time.time()
-        model = sgd_mss_with_momentum_noalloc(
-            Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs
-        )
-        end_time = time.time()
-        noalloc_time.append(end_time - start_time)
+    alloc_time = [
+        7.0739099979400635,
+        5.126156806945801,
+        4.104083776473999,
+        3.505143642425537,
+        2.9673779010772705,
+        2.8968610763549805,
+        3.5706679821014404,
+    ]
+    noalloc_time = [
+        5.348340034484863,
+        3.9374639987945557,
+        2.777128219604492,
+        1.967005729675293,
+        1.7846379280090332,
+        1.823612928390503,
+        1.9162461757659912,
+    ]
 
-        # manual threading
-        # start_time = time.time()
-        # model = sgd_mss_with_momentum_threaded(
-        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs, 6)
-        # end_time = time.time()
-        # alloc_time.append(end_time - start_time)
+    alloc_time_multithread = [
+        6.998680830001831,
+        6.8719000816345215,
+        3.975306987762451,
+        4.3805992603302,
+        2.7663516998291016,
+        3.211153984069824,
+        3.0380749702453613,
+    ]
+    noalloc_time_multithread = [
+        5.592694997787476,
+        3.7269370555877686,
+        3.5443363189697266,
+        3.394838571548462,
+        1.542586088180542,
+        1.4007618427276611,
+        1.1250410079956055,
+    ]
 
-        # start_time = time.time()
-        # model = sgd_mss_with_momentum_noalloc_float32(
-        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs)
-        # end_time = time.time()
-        # alloc_time.append(end_time - start_time)
+    noalloc_time_manual = [
+        45.61742687225342,
+        24.394543886184692,
+        13.322428226470947,
+        6.858793020248413,
+        2.523045301437378,
+        1.1000370979309082,
+        0.8316080570220947,
+    ]
 
-        # manual threading
-        # start_time = time.time()
-        # model = sgd_mss_with_momentum_threaded_float32(
-        #     Xs_tr, Ys_tr, gamma, W0, alpha, beta, batch_size, epochs, 6)
-        # end_time = time.time()
-        # alloc_time.append(end_time - start_time)
+    alloc_time_32 = [
+        6.383808851242065,
+        3.9482967853546143,
+        2.9007580280303955,
+        2.0151331424713135,
+        1.927886724472046,
+        1.7353417873382568,
+        1.7977900505065918,
+    ]
+    manual_alloc_time_32 = [
+        84.23634910583496,
+        41.92745089530945,
+        24.81030511856079,
+        13.42278790473938,
+        2.976414918899536,
+        1.9920320510864258,
+        1.8075447082519531,
+    ]
+    multi_alloc_time_32 = [
+        6.4468910694122314,
+        4.513223886489868,
+        3.6224141120910645,
+        2.565131902694702,
+        1.3369488716125488,
+        1.229236125946045,
+        1.229506015777588,
+    ]
 
-    print("Alloc times: ", alloc_time)
     pyplot.plot(
         batch_sizes,
         alloc_time,
         "#527cca",
-        label="One Thread, With Memory Allocation, float64",
+        # label="One Thread, With Memory Allocation, float64",
     )
     pyplot.plot(
         batch_sizes,
         noalloc_time,
         "#1cbaaa",
-        label="One Thread, No Memory Allocation, float64",
+        # label="One Thread, Without Memory Allocation, float64",
     )
+    pyplot.plot(
+        batch_sizes,
+        alloc_time_multithread,
+        "#a40000",
+        # label="Multithread With Memory Allocation, float64",
+    )
+    pyplot.plot(
+        batch_sizes,
+        noalloc_time_multithread,
+        "#fa8072",
+        # label="Multithread Without Memory Allocation, float64",
+    )
+    pyplot.plot(
+        batch_sizes,
+        noalloc_time_manual,
+        "#cc00cc",
+        # label="Manual Multithread Without Memory Allocation, float64",
+    )
+
+    pyplot.plot(
+        batch_sizes,
+        alloc_time_32,
+        "#8db600",
+        # label="One Thread, With Memory Allocation, float32",
+    )
+    pyplot.plot(
+        batch_sizes,
+        manual_alloc_time_32,
+        "#008000",
+        # label="Manual Multithread Without Memory Allocation, float32",
+    )
+    pyplot.plot(
+        batch_sizes,
+        multi_alloc_time_32,
+        "#66ff00",
+        # label="Multithread Without Memory Allocation, float32",
+    )
+
+    pyplot.title("Time vs Minibatch Size")
+    pyplot.xlabel("Minibatch Size")
+    pyplot.ylabel("Wall clock time")
+    pyplot.ylim([0.8, 2])
+    pyplot.legend()
+    pyplot.savefig("part4_graph.png")
+    pyplot.close()
