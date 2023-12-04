@@ -14,7 +14,8 @@ import scipy
 import matplotlib
 import mnist
 import pickle
-matplotlib.use('agg')
+
+matplotlib.use("agg")
 from matplotlib import pyplot
 import threading
 import time
@@ -33,22 +34,27 @@ def multinomial_logreg_error(Xs, Ys, W):
     error = numpy.mean(predictions != numpy.argmax(Ys, axis=0))
     return error
 
+
 def multinomial_logreg_grad_i(Xs, Ys, ii, gamma, W):
-    WdotX = numpy.dot(W, Xs[:,ii])
+    WdotX = numpy.dot(W, Xs[:, ii])
     expWdotX = numpy.exp(WdotX - numpy.amax(WdotX, axis=0))
-    softmaxWdotX = expWdotX / numpy.sum(expWdotX, axis = 0)
-    return numpy.dot(softmaxWdotX - Ys[:,ii], Xs[:,ii].transpose()) / len(ii) + gamma * W
+    softmaxWdotX = expWdotX / numpy.sum(expWdotX, axis=0)
+    return (
+        numpy.dot(softmaxWdotX - Ys[:, ii], Xs[:, ii].transpose()) / len(ii) + gamma * W
+    )
+
+
 # END UTILITY FUNCTIONS
 
 
 def load_MNIST_dataset():
     PICKLE_FILE = os.path.join(mnist_data_directory, "MNIST.pickle")
     try:
-        dataset = pickle.load(open(PICKLE_FILE, 'rb'))
+        dataset = pickle.load(open(PICKLE_FILE, "rb"))
     except:
         # load the MNIST dataset
         mnist_data = mnist.MNIST(mnist_data_directory, return_type="numpy", gz=True)
-        Xs_tr, Lbls_tr = mnist_data.load_training();
+        Xs_tr, Lbls_tr = mnist_data.load_training()
         Xs_tr = Xs_tr.transpose() / 255.0
         Ys_tr = numpy.zeros((10, 60000))
         for i in range(60000):
@@ -56,9 +62,9 @@ def load_MNIST_dataset():
         # shuffle the training data
         numpy.random.seed(4787)
         perm = numpy.random.permutation(60000)
-        Xs_tr = numpy.ascontiguousarray(Xs_tr[:,perm])
-        Ys_tr = numpy.ascontiguousarray(Ys_tr[:,perm])
-        Xs_te, Lbls_te = mnist_data.load_testing();
+        Xs_tr = numpy.ascontiguousarray(Xs_tr[:, perm])
+        Ys_tr = numpy.ascontiguousarray(Ys_tr[:, perm])
+        Xs_te, Lbls_te = mnist_data.load_testing()
         Xs_te = Xs_te.transpose() / 255.0
         Ys_te = numpy.zeros((10, 10000))
         for i in range(10000):
@@ -66,9 +72,8 @@ def load_MNIST_dataset():
         Xs_te = numpy.ascontiguousarray(Xs_te)
         Ys_te = numpy.ascontiguousarray(Ys_te)
         dataset = (Xs_tr, Ys_tr, Xs_te, Ys_te)
-        pickle.dump(dataset, open(PICKLE_FILE, 'wb'))
+        pickle.dump(dataset, open(PICKLE_FILE, "wb"))
     return dataset
-
 
 
 # SGD + Momentum (adapt from Programming Assignment 3)
@@ -92,13 +97,14 @@ def sgd_mss_with_momentum(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
     W = W0
     print("Running minibatch sequential-scan SGD with momentum")
     for it in tqdm(range(num_epochs)):
-        for ibatch in range(int(n/B)):
-            ii = range(ibatch*B, (ibatch+1)*B)
+        for ibatch in range(int(n / B)):
+            ii = range(ibatch * B, (ibatch + 1) * B)
             V = beta * V - alpha * multinomial_logreg_grad_i(Xs, Ys, ii, gamma, W)
             W = W + V
-            if ((ibatch+1) % monitor_period == 0):
-                models.append(W)
-    return models
+    return W
+    #         if ((ibatch+1) % monitor_period == 0):
+    #             models.append(W)
+    # return models
 
 
 # SGD + Momentum (No Allocation) => all operations in the inner loop should be a
@@ -120,12 +126,19 @@ def sgd_mss_with_momentum_noalloc(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs)
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO students should initialize the parameter vector W and pre-allocate any needed arrays here
+    T_out = numpy.zeros(W0.shape)
+    W_out = W0
     print("Running minibatch sequential-scan SGD with momentum (no allocation)")
     for it in tqdm(range(num_epochs)):
-        for ibatch in range(int(n/B)):
-            # ii = range(ibatch*B, (ibatch+1)*B)
+        for ibatch in range(int(n / B)):
+            ii = range(ibatch * B, (ibatch + 1) * B)
             # TODO this section of code should only use numpy operations with the "out=" argument specified (students should implement this)
-    return W
+            numpy.multiply(beta, T_out, out=T_out)
+            numpy.multiply(
+                alpha, multinomial_logreg_grad_i(Xs, Ys, ii, gamma, W_out), out=T_out
+            )
+            numpy.add(T_out, W_out, out=W_out)
+    return W_out
 
 
 # SGD + Momentum (threaded)
@@ -142,7 +155,9 @@ def sgd_mss_with_momentum_noalloc(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs)
 # num_threads     how many threads to use
 #
 # returns         the final model arrived at at the end of training
-def sgd_mss_with_momentum_threaded(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs, num_threads):
+def sgd_mss_with_momentum_threaded(
+    Xs, Ys, gamma, W0, alpha, beta, B, num_epochs, num_threads
+):
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO perform any global setup/initialization/allocation (students should implement this)
@@ -154,21 +169,25 @@ def sgd_mss_with_momentum_threaded(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs
     def thread_main(ithread):
         # TODO perform any per-thread allocations
         for it in range(num_epochs):
-            for ibatch in range(int(n/B)):
+            for ibatch in range(int(n / B)):
                 # TODO work done by thread in each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
                 # ii = range(ibatch*B + ithread*Bt, ibatch*B + (ithread+1)*Bt)
                 iter_barrier.wait()
                 iter_barrier.wait()
 
-    worker_threads = [threading.Thread(target=thread_main, args=(it,)) for it in range(num_threads)]
+    worker_threads = [
+        threading.Thread(target=thread_main, args=(it,)) for it in range(num_threads)
+    ]
 
     for t in worker_threads:
         print("running thread ", t)
         t.start()
 
-    print("Running minibatch sequential-scan SGD with momentum (%d threads)" % num_threads)
+    print(
+        "Running minibatch sequential-scan SGD with momentum (%d threads)" % num_threads
+    )
     for it in tqdm(range(num_epochs)):
-        for ibatch in range(int(n/B)):
+        for ibatch in range(int(n / B)):
             iter_barrier.wait()
             # TODO work done on a single thread at each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
             iter_barrier.wait()
@@ -195,7 +214,9 @@ def sgd_mss_with_momentum_threaded(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs
 # monitor_period  how frequently, in terms of batches (not epochs) to output the parameter vector
 #
 # returns         the final model arrived at at the end of training
-def sgd_mss_with_momentum_noalloc_float32(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs):
+def sgd_mss_with_momentum_noalloc_float32(
+    Xs, Ys, gamma, W0, alpha, beta, B, num_epochs
+):
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO students should implement this by copying and adapting their 64-bit code
@@ -215,11 +236,12 @@ def sgd_mss_with_momentum_noalloc_float32(Xs, Ys, gamma, W0, alpha, beta, B, num
 # num_threads     how many threads to use
 #
 # returns         the final model arrived at at the end of training
-def sgd_mss_with_momentum_threaded_float32(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs, num_threads):
+def sgd_mss_with_momentum_threaded_float32(
+    Xs, Ys, gamma, W0, alpha, beta, B, num_epochs, num_threads
+):
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO students should implement this by copying and adapting their 64-bit code
-
 
 
 if __name__ == "__main__":
