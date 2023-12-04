@@ -415,7 +415,7 @@ if __name__ == "__main__":
         1.9162461757659912,
     ]
 
-    noalloc_time_multithread = [
+    alloc_time_multithread = [
         6.998680830001831,
         6.8719000816345215,
         3.975306987762451,
@@ -486,7 +486,7 @@ if __name__ == "__main__":
     )
     pyplot.plot(
         batch_sizes,
-        noalloc_time_multithread,
+        alloc_time_multithread,
         "#a40000",
         # label="Multithread With Memory Allocation, float64",
     )
@@ -522,10 +522,10 @@ if __name__ == "__main__":
         # label="Multithread Without Memory Allocation, float32",
     )
 
-    pyplot.title("Time vs Minibatch Size")
+    pyplot.title("Time vs Minibatch Size (Close Up)")
     pyplot.xlabel("Minibatch Size")
     pyplot.ylabel("Wall clock time")
     pyplot.ylim([0.8, 2])
     pyplot.legend()
-    pyplot.savefig("part4graph.png")
+    pyplot.savefig("part4_graph_blownup.png")
     pyplot.close()

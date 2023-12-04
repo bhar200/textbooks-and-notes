@@ -11,11 +11,19 @@
             "id": "7774f4170fda2175",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "homework/CS4787/parallel computing/Data.md",
-                "mode": "source",
-                "source": false
+                "file": "homework/CS4787/CS_4787_HW6__1_.pdf"
+              }
+            }
+          },
+          {
+            "id": "a17bfdbec6ec4079",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "homework/CS4787/parallel computing/Project 5 _ CS 4787_5777 Fall 2023.pdf"
               }
             }
           }
@@ -48,7 +56,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ku",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -71,11 +79,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/parallel computing/Data.md"
+                "file": "homework/CS4787/CS_4787_HW6__1_.pdf"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -95,7 +104,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/CS4787/parallel computing/Data.md",
+                "file": "homework/CS4787/CS_4787_HW6__1_.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +121,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/CS4787/parallel computing/Data.md",
+                "file": "homework/CS4787/CS_4787_HW6__1_.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,7 +144,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/CS4787/parallel computing/Data.md"
+                "file": "homework/CS4787/CS_4787_HW6__1_.pdf"
               }
             }
           }
@@ -156,33 +165,34 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7774f4170fda2175",
+  "active": "a728a94994dfdf68",
   "lastOpenFiles": [
-    "homework/CS4787/parallel computing/Project 5 _ CS 4787_5777 Fall 2023.pdf",
-    "homework/CS4787/CS_4787_HW6__1_.pdf",
-    "homework/CS4787/hyperparam optimization/Project 5 _ CS 4787_5777 Fall 2023.pdf",
-    "homework/CS4787/parallel computing/Data.md",
-    "shakespeare/Pasted image 20231204005340.png",
-    "shakespeare/Pasted image 20231204004842.png",
+    "homework/CS4787/parallel computing/part4_graph.png",
+    "homework/CS4787/parallel computing/part4_graph_closeup.png",
+    "homework/CS4787/parallel computing/part4_graph_blownup.png",
+    "homework/CS4787/parallel computing/part3_graph.png",
+    "homework/CS4787/parallel computing/part2_graph.png",
+    "homework/CS4787/parallel computing/part1_graph.png",
+    "homework/CS4787/parallel computing/ALLISON_main_ALLISON.py",
+    "homework/CS4787/parallel computing/pa5.zip",
+    "homework/CS4787/parallel computing/submission_152161163.pdf",
+    "homework/CS4787/parallel computing/Report.pdf",
+    "homework/CS4787/parallel computing/Report.md",
+    "homework/CS4787/release/data/train-labels-idx1-ubyte.gz",
+    "homework/CS4787/release/data/train-images-idx3-ubyte.gz",
+    "homework/CS4787/release/data/t10k-labels-idx1-ubyte.gz",
+    "homework/CS4787/release/data/t10k-images-idx3-ubyte.gz",
+    "homework/CS4787/release/requirements.txt",
+    "homework/CS4787/release/data",
+    "homework/CS4787/Report.md",
+    "shakespeare/Pasted image 20231204141600.png",
+    "homework/CS4787/part4_graph_blownup.png",
+    "shakespeare/Pasted image 20231204141439.png",
     "homework/CS4787/part4_graph.png",
-    "shakespeare/Pasted image 20231204003825.png",
-    "shakespeare/Pasted image 20231204003451.png",
-    "homework/CS4787/part3_graph.png",
-    "shakespeare/Pasted image 20231204002815.png",
-    "shakespeare/Pasted image 20231204002814.png",
-    "homework/CS4787/part2_graph.png",
-    "shakespeare/Pasted image 20231204002340.png",
+    "homework/CS4787/part4_graph_closeup.png",
     "Conduct and Decorum.md",
     "Programming.md",
     "homework/AEP 3300/PSET 12 q4-q5.md",
-    "homework/CS4787/submission_152161163.pdf",
-    "homework/CS4787/main.py",
-    "homework/AEP 3300/PSET 12 q4-q5.pdf",
-    "homework/AEP 3300/3300 pset 12 4-5.pdf",
-    "homework/AEP 3300/Unconfirmed 835137.crdownload",
-    "homework/AEP 3300/3300 pset 5.pdf",
-    "homework/AEP 3300/Unconfirmed 654475.crdownload",
-    "homework/AEP 3300/3300 (1).pdf",
     "homework/AEP 3300/PSET 12 q1.md",
     "homework/AEP 3300/PSET 12 q2-q3.md",
     "homework/AEP 3300/PSET 11.md",
@@ -203,7 +213,6 @@
     "shakespeare/Henry V.md",
     "README.md",
     "shakespeare/Richard II.md",
-    "Untitled.canvas",
-    "notes/quantum/Math Remarks for Quantum States.md"
+    "Untitled.canvas"
   ]
 }
