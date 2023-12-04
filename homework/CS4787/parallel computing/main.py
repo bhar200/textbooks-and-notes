@@ -3,6 +3,7 @@ import os
 
 # BEGIN THREAD SETTINGS this sets the number of threads used by numpy in the program (should be set to 1 for Parts 1 and 3)
 implicit_num_threads = 1
+
 os.environ["OMP_NUM_THREADS"] = str(implicit_num_threads)
 os.environ["MKL_NUM_THREADS"] = str(implicit_num_threads)
 os.environ["OPENBLAS_NUM_THREADS"] = str(implicit_num_threads)
@@ -126,19 +127,34 @@ def sgd_mss_with_momentum_noalloc(Xs, Ys, gamma, W0, alpha, beta, B, num_epochs)
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO students should initialize the parameter vector W and pre-allocate any needed arrays here
-    T_out = numpy.zeros(W0.shape)
-    W_out = W0
+    V = numpy.zeros(W0.shape)
+    W = W0
+    presliced_examples = [
+        numpy.ascontiguousarray(Xs[:, ibatch * B : (ibatch + 1) * B])
+        for ibatch in range(int(n / B))
+    ]
+    presliced_labels = [
+        numpy.ascontiguousarray(Ys[:, ibatch * B : (ibatch + 1) * B])
+        for ibatch in range(int(n / B))
+    ]
     print("Running minibatch sequential-scan SGD with momentum (no allocation)")
     for it in tqdm(range(num_epochs)):
         for ibatch in range(int(n / B)):
-            ii = range(ibatch * B, (ibatch + 1) * B)
             # TODO this section of code should only use numpy operations with the "out=" argument specified (students should implement this)
-            numpy.multiply(beta, T_out, out=T_out)
+            numpy.multiply(beta, V, out=V)
             numpy.multiply(
-                alpha, multinomial_logreg_grad_i(Xs, Ys, ii, gamma, W_out), out=T_out
+                alpha,
+                multinomial_logreg_grad_i(
+                    presliced_examples[ibatch],
+                    presliced_labels[ibatch],
+                    None,
+                    gamma,
+                    W,
+                ),
+                out=V,
             )
-            numpy.add(T_out, W_out, out=W_out)
-    return W_out
+            numpy.add(V, W, out=W)
+    return W
 
 
 # SGD + Momentum (threaded)
@@ -161,6 +177,11 @@ def sgd_mss_with_momentum_threaded(
     (d, n) = Xs.shape
     (c, d) = W0.shape
     # TODO perform any global setup/initialization/allocation (students should implement this)
+    V = numpy.zeros(W0.shape)
+    W = W0
+    accumulator = numpy.zeros((num_threads, c, d))
+    grad_sum = numpy.zeros((c, d))
+    Bt = int(B / num_threads)
 
     # construct the barrier object
     iter_barrier = threading.Barrier(num_threads + 1)
@@ -168,11 +189,29 @@ def sgd_mss_with_momentum_threaded(
     # a function for each thread to run
     def thread_main(ithread):
         # TODO perform any per-thread allocations
+
+        presliced_examples = [
+            numpy.ascontiguousarray(
+                Xs[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)]
+            )
+            for ibatch in range(int(n / B))
+        ]
+
+        presliced_labels = [
+            numpy.ascontiguousarray(
+                Ys[:, (ibatch * B + ithread * Bt) : (ibatch * B + (ithread + 1) * Bt)]
+            )
+            for ibatch in range(int(n / B))
+        ]
+
         for it in range(num_epochs):
             for ibatch in range(int(n / B)):
                 # TODO work done by thread in each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
                 # ii = range(ibatch*B + ithread*Bt, ibatch*B + (ithread+1)*Bt)
                 iter_barrier.wait()
+                accumulator[ithread] = multinomial_logreg_grad_i(
+                    presliced_examples[ibatch], presliced_labels[ibatch], None, gamma, W
+                )
                 iter_barrier.wait()
 
     worker_threads = [
@@ -190,6 +229,11 @@ def sgd_mss_with_momentum_threaded(
         for ibatch in range(int(n / B)):
             iter_barrier.wait()
             # TODO work done on a single thread at each iteration; this section of code should primarily use numpy operations with the "out=" argument specified (students should implement this)
+            numpy.sum(accumulator, axis=0, out=grad_sum)
+            numpy.multiply(alpha / num_threads, grad_sum, out=grad_sum)
+            numpy.multiply(beta, V, out=V)
+            numpy.subtract(V, grad_sum, out=V)
+            numpy.add(V, W, out=W)
             iter_barrier.wait()
 
     for t in worker_threads:
