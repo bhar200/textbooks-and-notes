@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "homework/AEP 3300/PSET 12 q4-q5.md",
+                "file": "Conduct and Decorum.md",
                 "mode": "source",
                 "source": false
               }
@@ -71,7 +71,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 12 q4-q5.md"
+                "file": "Conduct and Decorum.md"
               }
             }
           }
@@ -95,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "homework/AEP 3300/PSET 12 q4-q5.md",
+                "file": "Conduct and Decorum.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -112,7 +112,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "homework/AEP 3300/PSET 12 q4-q5.md",
+                "file": "Conduct and Decorum.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -135,7 +135,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "homework/AEP 3300/PSET 12 q4-q5.md"
+                "file": "Conduct and Decorum.md"
               }
             }
           }
@@ -158,6 +158,9 @@
   },
   "active": "ca6c967eab5b12f6",
   "lastOpenFiles": [
+    "Programming.md",
+    "Conduct and Decorum.md",
+    "homework/AEP 3300/PSET 12 q4-q5.md",
     "homework/CS4787/submission_152161163.pdf",
     "homework/CS4787/main.py",
     "homework/CS4787/CS_4787_HW6__1_.pdf",
@@ -168,9 +171,7 @@
     "homework/AEP 3300/Unconfirmed 654475.crdownload",
     "homework/AEP 3300/3300 (1).pdf",
     "homework/AEP 3300/Unconfirmed 254473.crdownload",
-    "homework/AEP 3300/3300.pdf",
     "homework/AEP 3300/PSET 12 q1.md",
-    "homework/AEP 3300/PSET 12 q4-q5.md",
     "homework/AEP 3300/PSET 12 q2-q3.md",
     "homework/AEP 3300/PSET 11.md",
     "PSET 12.md",
@@ -178,7 +179,6 @@
     "homework/AEP 4200/PSET 5.md",
     "homework/AEP 3300/PSET 10.md",
     "homework/AEP 4200/Q25 4200.md",
-    "Programming.md",
     "homework/CS4787/training opts/PA 3.md",
     "homework/AEP 3300/PSET 8.md",
     "homework/CS4787/Bryant Har Lectures condensed.md",
