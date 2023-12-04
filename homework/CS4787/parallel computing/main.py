@@ -415,7 +415,7 @@ if __name__ == "__main__":
         1.9162461757659912,
     ]
 
-    alloc_time_multithread = [
+    noalloc_time_multithread = [
         6.998680830001831,
         6.8719000816345215,
         3.975306987762451,
@@ -453,7 +453,7 @@ if __name__ == "__main__":
         1.7353417873382568,
         1.7977900505065918,
     ]
-    manual_alloc_time_32 = [
+    manual_noalloc_time_32 = [
         84.23634910583496,
         41.92745089530945,
         24.81030511856079,
@@ -462,7 +462,7 @@ if __name__ == "__main__":
         1.9920320510864258,
         1.8075447082519531,
     ]
-    multi_alloc_time_32 = [
+    multi_noalloc_time_32 = [
         6.4468910694122314,
         4.513223886489868,
         3.6224141120910645,
@@ -486,7 +486,7 @@ if __name__ == "__main__":
     )
     pyplot.plot(
         batch_sizes,
-        alloc_time_multithread,
+        noalloc_time_multithread,
         "#a40000",
         # label="Multithread With Memory Allocation, float64",
     )
@@ -511,13 +511,13 @@ if __name__ == "__main__":
     )
     pyplot.plot(
         batch_sizes,
-        manual_alloc_time_32,
+        manual_noalloc_time_32,
         "#008000",
         # label="Manual Multithread Without Memory Allocation, float32",
     )
     pyplot.plot(
         batch_sizes,
-        multi_alloc_time_32,
+        multi_noalloc_time_32,
         "#66ff00",
         # label="Multithread Without Memory Allocation, float32",
     )
@@ -527,5 +527,5 @@ if __name__ == "__main__":
     pyplot.ylabel("Wall clock time")
     pyplot.ylim([0.8, 2])
     pyplot.legend()
-    pyplot.savefig("part4_graph.png")
+    pyplot.savefig("part4graph.png")
     pyplot.close()
